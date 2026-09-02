@@ -3,9 +3,10 @@
 **Date:** 2026-09-02
 **Business:** Rathore Chambers INC — Purchase & Sale of Agricultural Land (Krishi Bhumi) and Commercial Shops. Assists clients in identifying suitable properties, negotiating deals, and completing transactions smoothly.
 **Repo path:** `D:\Sarthak\Coding\Work\KWTC\RathoreChambersINC`
-**Git:** initialized on branch `main`. Initial commit `4bd7a90` (45 files). No remote configured. `dist/`, `node_modules/`, `.astro/` correctly ignored.
+**Git:** branch `main`, remote `origin` → `https://github.com/sarthakdev143-lite/RathoreChambersINC` (**private**). `dist/`, `node_modules/`, `.astro/`, `.vercel/` ignored.
+**Live:** https://rathore-chambers-inc.vercel.app — Vercel project `kwtc/rathore-chambers-inc`, GitHub repo connected, so **every push to `main` auto-deploys**.
 
-**Status: all 13 tracked build tasks are complete.** The site builds clean and is deploy-ready. The only thing standing between this and launch is the client filling in real contact details in `src/config/site.ts` — see section 7.
+**Status: built, deployed and verified.** The remaining work is client input, not code — real contact details and a real domain. See section 7.
 
 ---
 
@@ -179,7 +180,8 @@ From `TodoWrite` tracker:
 | Review copy in `src/i18n/ui.ts` | **client** | Especially FAQ answers on fees/timelines and the per-service process steps — written without knowing their actual workflow. |
 | Fill `SERVICE_AREAS` | client | Empty array hides the coverage section; filling it is worth real local-SEO value. |
 | Fill `STATS` (or leave empty) | client | Leaving empty is a legitimate final answer — do not invent numbers. |
-| Set real domain in `SITE.url`, then rebuild | client/dev | Baked into canonical + hreflang + sitemap at build time. |
+| Set real domain in `SITE.url`, then rebuild | client/dev | Currently the Vercel alias, so the live pages reference themselves correctly. Baked in at build time — rebuild + redeploy after changing. |
+| Decide whether the `.vercel.app` URL should be indexable | **dev/client** | `robots.txt` currently allows all and canonical points at the Vercel domain, so Google may index it. If the real domain is coming, add `X-Robots-Tag: noindex` for the Vercel host first to avoid duplicate-content and redirect cleanup later. |
 | Submit `sitemap-index.xml` to Search Console | post-deploy | |
 | Lighthouse / PageSpeed on the live URL | post-deploy | Not run locally. Static proxies verified instead: **0 external JS bundles**, 4 small inline scripts, self-hosted subsetted fonts with 2 preloads per locale, 656 KB total `dist/`, 20–36 KB per page. |
 | Optional: `public/_headers` / `vercel.json` cache headers | dev | Deliberately not added — depends on host, and filenames are already fingerprinted. Documented in README. |
@@ -211,6 +213,8 @@ The build phase is finished — there is no pending code task. If you are pickin
 - **OG image:** `scripts/generate-brand-assets.mjs` `ogTree()` uses `flex` display explicitly (satori requires it) and `img()` helper for `src` (not style). Previous bug was `src` in style object → "Image source is not provided".
 - **Favicon ICO:** manually wrapped PNG in ICO container (`pngToIco()`), since `sharp` cannot write `.ico`.
 - **Stats strip hidden when `STATS` empty** — intentional; don't invent numbers.
+- **⚠️ Scoped styles cannot reach into `Icon.astro` / `Logo.astro`.** Astro appends its `data-astro-cid-*` attribute to *every* compound selector in a scoped `<style>`, bare element selectors included. Neither `Icon.astro` nor `Logo.astro` has a `<style>` block, so their rendered elements carry no cid and any parent rule targeting them — `.foo svg`, or a class handed over as `<Icon class="bar" />` — compiles to `svg[cid]` / `.bar[cid]` and silently never matches. 17 selectors were dead this way. Reach them with `:global()` nested under a scope-carrying ancestor, e.g. `.burger :global(.burger__close)`, and **verify against the compiled CSS in `dist/_astro/*.css`**, not the source.
+- **⚠️ The header must have a dark section behind it.** `.site-header` is `position: fixed` and transparent until `.is-scrolled`, drawing cream text. `<main>` therefore must NOT be offset — `main > section:first-child { padding-top: var(--header-h) }` in `global.css` lets the dark hero flow up behind it instead. Offsetting `<main>` puts cream text on the cream page background and makes the wordmark, nav and language toggle invisible until the first scroll. Any new top-level page must open with a full-bleed `surface-dark` hero.
 
 ---
 
