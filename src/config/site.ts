@@ -12,8 +12,16 @@
  */
 
 export const SITE = {
-  /** TODO: your real domain, no trailing slash. Used for canonical URLs + sitemap. */
-  url: 'https://www.rathorechambers.com',
+  /**
+   * Domain the site is served from — no trailing slash. Baked into canonical
+   * URLs, og:url, hreflang and the sitemap at BUILD time, so rebuild and
+   * redeploy after changing it.
+   *
+   * TODO: replace with the real domain once it points at Vercel. This holds the
+   * Vercel production URL for now so the deployed pages reference themselves
+   * rather than a domain that is not yet serving the site.
+   */
+  url: 'https://rathore-chambers-inc.vercel.app',
 
   name: 'Rathore Chambers INC',
   shortName: 'Rathore Chambers',
