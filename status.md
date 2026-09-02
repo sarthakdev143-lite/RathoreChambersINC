@@ -1,9 +1,11 @@
 # Rathore Chambers INC — Project Status
 
-**Date:** 2026-05-13
+**Date:** 2026-09-02
 **Business:** Rathore Chambers INC — Purchase & Sale of Agricultural Land (Krishi Bhumi) and Commercial Shops. Assists clients in identifying suitable properties, negotiating deals, and completing transactions smoothly.
 **Repo path:** `D:\Sarthak\Coding\Work\KWTC\RathoreChambersINC`
-**Git:** not yet initialized (`npm create astro` was run with `--no-git`)
+**Git:** initialized on branch `main`. Initial commit `4bd7a90` (45 files). No remote configured. `dist/`, `node_modules/`, `.astro/` correctly ignored.
+
+**Status: all 13 tracked build tasks are complete.** The site builds clean and is deploy-ready. The only thing standing between this and launch is the client filling in real contact details in `src/config/site.ts` — see section 7.
 
 ---
 
@@ -141,7 +143,8 @@ dist/  # built output (13 pages, sitemap-index.xml + sitemap-0.xml)
   sitemap-index.xml, sitemap-0.xml (12 locs)
   ```
 - Verified: title/canonical/hreflang on agri-land page, JSON-LD parses with 6 graph nodes, HI `<html lang="hi-IN">` + `og:locale hi_IN`, sitemap alternates, `robots.txt` correct, `og.png` renders (logo, headline, Devanagari, pills).
-- `dist/` is present but **not committed** (no git yet). `public/` icons + `og.png` are generated and present.
+- `dist/` is gitignored (build artefact, regenerate with `npm run build`). The five generated `public/` assets **are** committed, so a fresh clone does not need network access to `assets:brand`.
+- **Re-verified 2026-09-02:** `npm run build` → 0 errors / 0 warnings / 0 hints (30 files), 13 pages in 2.27s. Payload audit: **0 `.js` files emitted** and no `<script src>` in any page (the 4 scripts on the home page are all inline — header scroll state, mobile menu, reveal observer, FAB), 4 subsetted `.woff2` in `dist/_astro/fonts/`, 656 KB total.
 
 ---
 
@@ -163,35 +166,38 @@ From `TodoWrite` tracker:
 | 10 | WA form + FAB | ✅ done |
 | 11 | robots.txt, favicon/logo SVG, 404, OG image | ✅ done (script generates all 5) |
 | 12 | Build and verify | ✅ done (check + build pass, manual SEO verification done) |
-| 13 | **README with fill-in-the-blanks + deploy instructions** | ⏳ **PENDING — next task** |
+| 13 | README with fill-in-the-blanks + deploy instructions | ✅ done |
+| 14 | `git init` + initial commit | ✅ done |
 
-**README should cover:**
-- Prereqs (`node >=22.12.0`)
-- `npm install`, `npm run dev` (note `AGENTS.md` says `astro dev --background` / `astro dev stop|status|logs` for background mode)
-- Editing `src/config/site.ts` (all TODOs), `SERVICE_AREAS`, `STATS`, `src/i18n/ui.ts` copy review
-- `npm run assets:brand` after logo/color/OG wording changes (requires network for fonts)
-- `npm run check` + `npm run build` / `build:fast`
-- Deploy: any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, cPanel) — upload `dist/`; set custom domain to `SITE.url`; ensure `SITE.url` has no trailing slash
-- Optional: `astro add` for adapters if SSR needed (currently `output: "static"`)
+**README.md** (replaced the Astro scaffold default) is written for the *business owner* as primary audience, not a developer. Sections: pre-launch checklist (the four steps — fill `site.ts`, read the copy in `ui.ts`, regenerate brand assets, build), local development + command table, deploying (Netlify/Vercel/CF Pages with build command + `NODE_VERSION=22`, GitHub Pages `base` caveat, cPanel/FTP, optional cache headers), post-launch checklist (Search Console + `sitemap-index.xml`, Google Business Profile NAP match, test WA on a real phone, social preview, Rich Results Test, analytics), project structure, and a "notes for whoever works on this next" block carrying the gotchas from section 9 so they survive without this file.
 
-**Other pending / nice-to-have (not in original tracker):**
-- `git init`, `.gitignore` (should ignore `dist/`, `node_modules/`, `.astro/`), initial commit
-- Fill real contact details before launch (otherwise WA links go to placeholder number)
-- Consider adding `public/_headers` or `vercel.json` caching if deploying to Netlify/Vercel
-- Lighthouse / PageSpeed check on `npm run preview` (expected 100s; no JS islands)
-- Optional: add `src/pages/sitemap.xml.ts` override if custom sitemap filtering needed (not needed now)
-- Optional: add analytics (e.g., Plausible/GA) — add script in `BaseLayout.astro` head
+**Remaining work — all of it is client input or post-deploy, none of it is code:**
+
+| Item | Owner | Notes |
+|---|---|---|
+| Fill real contact details in `src/config/site.ts` | **client** | **Blocks launch.** Until done, every WhatsApp/call link points at placeholder `+919000000000`. |
+| Review copy in `src/i18n/ui.ts` | **client** | Especially FAQ answers on fees/timelines and the per-service process steps — written without knowing their actual workflow. |
+| Fill `SERVICE_AREAS` | client | Empty array hides the coverage section; filling it is worth real local-SEO value. |
+| Fill `STATS` (or leave empty) | client | Leaving empty is a legitimate final answer — do not invent numbers. |
+| Set real domain in `SITE.url`, then rebuild | client/dev | Baked into canonical + hreflang + sitemap at build time. |
+| Submit `sitemap-index.xml` to Search Console | post-deploy | |
+| Lighthouse / PageSpeed on the live URL | post-deploy | Not run locally. Static proxies verified instead: **0 external JS bundles**, 4 small inline scripts, self-hosted subsetted fonts with 2 preloads per locale, 656 KB total `dist/`, 20–36 KB per page. |
+| Optional: `public/_headers` / `vercel.json` cache headers | dev | Deliberately not added — depends on host, and filenames are already fingerprinted. Documented in README. |
+| Optional: analytics | dev | Add to `<head>` in `BaseLayout.astro`; README suggests a cookieless provider to avoid a cookie banner. |
+| Optional: `git remote add origin …` + push | client/dev | No remote configured yet. |
 
 ---
 
 ## 8. How to Continue
 
-1. **Read `src/config/site.ts:1` and `src/i18n/ui.ts:1`** — they document what to edit.
-2. **Run** `npm run check` and `npm run build:fast` to re-verify.
-3. **Write `README.md`** per section 7 (deploy instructions must mention `SITE.url` and `public/` assets).
-4. **Create `.gitignore`** and `git init` if the user wants version control.
-5. **Preview:** `npm run preview` or `npx astro preview` then open `http://localhost:4321` and `/hi/`.
-6. **If changing brand:** edit `BRAND` in `scripts/generate-brand-assets.mjs:17` and run `npm run assets:brand`, then rebuild.
+The build phase is finished — there is no pending code task. If you are picking this up:
+
+1. **Re-verify first:** `npm run build` (expect *0 errors* and *13 pages*). First run on a new machine needs network so Astro can cache the four fonts.
+2. **Read `README.md`** — it is now the authoritative fill-in-the-blanks + deploy guide. This file is the *engineering* history; the README is what the client uses.
+3. **If asked to launch:** the real blocker is client input, not code. Get the contact details, put them in `src/config/site.ts:1`, set `SITE.url` to the real domain, rebuild, then deploy `dist/` to any static host.
+4. **Preview before deploying:** `npm run preview`, then check `http://localhost:4321` and `/hi/` — this serves the real build output, unlike `dev`.
+5. **If changing brand:** edit `BRAND` in `scripts/generate-brand-assets.mjs:31` and run `npm run assets:brand` (needs network), then rebuild.
+6. **If adding a page:** create it under `src/pages/[...lang]/`, copy `getStaticPaths()` from a sibling page, and add copy to **both** `en` and `hi` in `src/i18n/ui.ts` — a missing Hindi key is a type error, so `npm run check` will catch it.
 
 ---
 
