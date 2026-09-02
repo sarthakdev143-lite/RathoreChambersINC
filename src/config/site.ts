@@ -122,6 +122,16 @@ export const socialLinks = Object.entries(SOCIAL)
   .filter(([, href]) => Boolean(href))
   .map(([network, href]) => ({ network, href }));
 
+export function isPlaceholderPhone(): boolean {
+  return CONTACT.phone.e164 === '+919000000000' || (CONTACT.phone.e164 as string).includes('90000');
+}
+export function isPlaceholderWhatsapp(): boolean {
+  return CONTACT.whatsapp === '919000000000' || (CONTACT.whatsapp as string).includes('90000');
+}
+export function isPlaceholderEmail(): boolean {
+  return CONTACT.email === 'contact@rathorechambers.com' || (CONTACT.email as string).includes('example');
+}
+
 /** Builds a wa.me deep link with an optional pre-filled message. */
 export function whatsappLink(message?: string): string {
   const base = `https://wa.me/${CONTACT.whatsapp}`;
