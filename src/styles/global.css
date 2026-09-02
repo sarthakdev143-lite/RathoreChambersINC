@@ -226,6 +226,21 @@ a {
   padding-block: var(--section-y);
 }
 
+/*
+ * The site header is `position: fixed` and starts out transparent so that the
+ * dark hero shows through it. Content therefore has to flow *underneath* the
+ * header rather than being pushed below it: offsetting <main> instead would
+ * expose the cream page background behind a header whose text is cream, which
+ * renders the wordmark and navigation invisible until the first scroll.
+ *
+ * Every page opens with a full-bleed `surface-dark` hero, and that hero
+ * reserves the header's height as its own top padding. A new top-level page
+ * must follow the same pattern, or its first section will sit under the header.
+ */
+main > section:first-child {
+  padding-top: var(--header-h);
+}
+
 .section--tight {
   padding-block: clamp(3rem, 6vw, 5rem);
 }

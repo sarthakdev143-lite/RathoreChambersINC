@@ -128,7 +128,7 @@ const t = ui[locale];
     box-shadow: var(--shadow-md);
   }
 
-  .direct a > svg:first-child {
+  .direct a > :global(svg:first-child) {
     color: var(--accent);
   }
 
@@ -140,7 +140,7 @@ const t = ui[locale];
     letter-spacing: 0.02em;
   }
 
-  .direct__go {
+  .direct :global(.direct__go) {
     color: var(--fg-subtle);
   }
 

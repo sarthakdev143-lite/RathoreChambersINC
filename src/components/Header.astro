@@ -259,7 +259,7 @@ const isActive = (key: RouteKey) =>
     flex: none;
   }
 
-  .brand__mark {
+  .brand :global(.brand__mark) {
     width: 34px;
     height: 34px;
     flex: none;
@@ -345,13 +345,13 @@ const isActive = (key: RouteKey) =>
     background: color-mix(in srgb, currentColor 12%, transparent);
   }
 
-  .nav__caret {
+  .nav__link :global(.nav__caret) {
     opacity: 0.6;
     transition: transform 0.2s var(--ease);
   }
 
-  .nav__item--has-menu:hover .nav__caret,
-  .nav__item--has-menu:focus-within .nav__caret {
+  .nav__item--has-menu:hover :global(.nav__caret),
+  .nav__item--has-menu:focus-within :global(.nav__caret) {
     transform: rotate(180deg);
   }
 
@@ -401,7 +401,7 @@ const isActive = (key: RouteKey) =>
     transition: background-color 0.15s var(--ease);
   }
 
-  .submenu__link svg {
+  .submenu__link :global(svg) {
     color: var(--c-forest-500);
   }
 
@@ -472,15 +472,15 @@ const isActive = (key: RouteKey) =>
     border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
   }
 
-  .burger__close {
+  .burger :global(.burger__close) {
     display: none;
   }
 
-  .burger[aria-expanded='true'] .burger__open {
+  .burger[aria-expanded='true'] :global(.burger__open) {
     display: none;
   }
 
-  .burger[aria-expanded='true'] .burger__close {
+  .burger[aria-expanded='true'] :global(.burger__close) {
     display: block;
   }
 
@@ -547,7 +547,7 @@ const isActive = (key: RouteKey) =>
     color: var(--fg);
   }
 
-  .mobile-menu__link svg {
+  .mobile-menu__link :global(svg) {
     color: var(--c-gold-400);
     opacity: 0.75;
   }
