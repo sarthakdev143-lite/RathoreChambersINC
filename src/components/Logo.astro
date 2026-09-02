@@ -1,0 +1,63 @@
+---
+/**
+ * Brand mark: a land parcel seen as a surveyed plot — a rotated square divided
+ * into quadrants, one staked out in gold.
+ */
+interface Props {
+  class?: string;
+  /** Renders flat in the current text colour instead of the brand gradient. */
+  mono?: boolean;
+}
+
+const { class: className, mono = false } = Astro.props;
+
+// Unique per instance so multiple logos on one page cannot clash.
+const uid = Math.random().toString(36).slice(2, 9);
+---
+
+<svg
+  class={className}
+  viewBox="0 0 40 40"
+  role="img"
+  aria-hidden="true"
+  focusable="false"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {
+    !mono && (
+      <defs>
+        <linearGradient id={`lg-${uid}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#226551" />
+          <stop offset="100%" stop-color="#0f2c22" />
+        </linearGradient>
+      </defs>
+    )
+  }
+
+  <rect
+    width="40"
+    height="40"
+    rx="10"
+    fill={mono ? 'currentColor' : `url(#lg-${uid})`}
+    opacity={mono ? 0.14 : 1}
+  />
+
+  <g transform="rotate(45 20 20)">
+    <path d="M20 11h9v9h-9z" fill={mono ? 'currentColor' : '#c9a227'} />
+    <path
+      d="M11 11h18v18H11z"
+      fill="none"
+      stroke={mono ? 'currentColor' : '#fbfaf7'}
+      stroke-width="1.6"
+      stroke-linejoin="round"
+      opacity={mono ? 0.9 : 0.92}
+    />
+    <path
+      d="M20 11v18M11 20h18"
+      stroke={mono ? 'currentColor' : '#fbfaf7'}
+      stroke-width="1.6"
+      stroke-linecap="round"
+      opacity={mono ? 0.55 : 0.62}
+    />
+  </g>
+</svg>

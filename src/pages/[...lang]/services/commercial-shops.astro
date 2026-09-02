@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AudienceSplit from '../../../components/AudienceSplit.astro';
+import CTABand from '../../../components/CTABand.astro';
+import EnquirySection from '../../../components/EnquirySection.astro';
+import NumberedGrid from '../../../components/NumberedGrid.astro';
+import PageHero from '../../../components/PageHero.astro';
+
+import { ui } from '../../../i18n/ui';
+import { localePaths, route, type Locale } from '../../../i18n/utils';
+import { absRoute, breadcrumbSchema, faqSchema, serviceSchema } from '../../../lib/seo';
+
+export const getStaticPaths = localePaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const t = ui[locale];
+const page = t.commercialShops;
+
+// Commercial-relevant subset of the FAQ.
+const pageFaq = [t.faq[2], t.faq[3], t.faq[5], t.faq[6]];
+
+const schema = [
+  breadcrumbSchema([
+    { name: t.nav.home, url: absRoute(locale, 'home') },
+    { name: t.nav.services, url: absRoute(locale, 'services') },
+    { name: page.title, url: absRoute(locale, 'commercialShops') },
+  ]),
+  serviceSchema({
+    locale,
+    name: t.meta.commercialShops.title,
+    description: t.meta.commercialShops.description,
+    url: absRoute(locale, 'commercialShops'),
+    serviceType: 'Commercial property brokerage',
+  }),
+  faqSchema(pageFaq),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="commercialShops"
+  title={t.meta.commercialShops.title}
+  description={t.meta.commercialShops.description}
+  schema={schema}
+>
+  <PageHero
+    locale={locale}
+    eyebrow={page.eyebrow}
+    title={page.title}
+    native={page.native}
+    lede={page.lede}
+    crumbs={[
+      { label: t.nav.home, href: route(locale, 'home') },
+      { label: t.nav.services, href: route(locale, 'services') },
+      { label: page.title },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <AudienceSplit
+        columns={[
+          { title: page.forBuyersTitle, icon: 'search', points: page.forBuyers },
+          { title: page.forSellersTitle, icon: 'key', points: page.forSellers },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight watch surface-dark">
+    <div class="grid-lines" aria-hidden="true"></div>
+    <div class="container watch__inner">
+      <div class="section-head">
+        <p class="eyebrow">{t.services.eyebrow}</p>
+        <h2 class="h2">{page.watchTitle}</h2>
+      </div>
+
+      <NumberedGrid items={page.watch} />
+    </div>
+  </section>
+
+  <EnquirySection
+    locale={locale}
+    title={page.ctaTitle}
+    body={page.ctaBody}
+    defaultType="commercial"
+  />
+
+  <CTABand
+    locale={locale}
+    title={t.home.ctaTitle}
+    body={t.home.ctaBody}
+    waMessage={`${t.form.waIntro} — ${page.title}`}
+  />
+</BaseLayout>
+
+<style>
+  .watch {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .watch__inner {
+    position: relative;
+    z-index: 1;
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+import { ui } from '../i18n/ui';
+import { LOCALES, LOCALE_NAMES, route } from '../i18n/utils';
+
+// A static host cannot know the visitor's language before this page renders,
+// so the 404 is shown in both languages with a route back into each tree.
+const en = ui.en;
+---
+
+<BaseLayout
+  locale="en"
+  routeKey="home"
+  title={en.meta.notFound.title}
+  description={en.meta.notFound.description}
+  noindex
+>
+  <section class="notfound surface-dark">
+    <div class="grid-lines" aria-hidden="true"></div>
+    <div class="glow glow--nf" aria-hidden="true"></div>
+
+    <div class="container notfound__inner">
+      <p class="notfound__code">404</p>
+
+      {
+        LOCALES.map((locale) => {
+          const t = ui[locale];
+          return (
+            <div class="notfound__block" lang={locale}>
+              <h1 class="notfound__title" class:list={[locale !== 'en' && 'notfound__title--alt']}>
+                {t.notFound.title}
+              </h1>
+              <p class="notfound__body">{t.notFound.body}</p>
+              <div class="notfound__actions">
+                <a class="btn btn--outline" href={route(locale, 'home')}>
+                  <Icon name="arrow-right" size={16} />
+                  {t.common.backHome}
+                  <span class="notfound__lang">{LOCALE_NAMES[locale]}</span>
+                </a>
+                <a class="btn btn--outline" href={route(locale, 'contact')}>
+                  {t.nav.contact}
+                </a>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100svh - var(--header-h));
+    display: flex;
+    align-items: center;
+  }
+
+  .glow--nf {
+    width: 44rem;
+    height: 28rem;
+    top: -12rem;
+    left: 50%;
+    translate: -50% 0;
+    background: radial-gradient(circle, rgb(46 139 107 / 0.35), transparent 70%);
+  }
+
+  .notfound__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .notfound__code {
+    font-family: var(--ff-mono);
+    font-size: clamp(4rem, 14vw, 8rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--c-gold-400);
+    opacity: 0.28;
+  }
+
+  .notfound__block {
+    max-width: 46rem;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .notfound__block:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .notfound__title {
+    font-size: var(--fs-3xl);
+  }
+
+  .notfound__title--alt {
+    font-family: var(--font-deva), sans-serif;
+    line-height: 1.3;
+  }
+
+  .notfound__body {
+    margin-top: 0.75rem;
+    color: var(--fg-muted);
+    max-width: 52ch;
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .notfound__lang {
+    font-family: var(--ff-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    opacity: 0.55;
+    padding-left: 0.15rem;
+  }
+</style>

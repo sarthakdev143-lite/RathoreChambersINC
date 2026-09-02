@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABand from '../../components/CTABand.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+
+import { SERVICE_AREAS, SITE } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localePaths, route, type Locale } from '../../i18n/utils';
+import { ORG_ID, absRoute, breadcrumbSchema } from '../../lib/seo';
+
+export const getStaticPaths = localePaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const t = ui[locale];
+const page = t.about;
+
+const schema = [
+  breadcrumbSchema([
+    { name: t.nav.home, url: absRoute(locale, 'home') },
+    { name: t.nav.about, url: absRoute(locale, 'about') },
+  ]),
+  {
+    '@type': 'AboutPage',
+    '@id': `${absRoute(locale, 'about')}#about`,
+    url: absRoute(locale, 'about'),
+    name: `${t.meta.about.title} | ${SITE.name}`,
+    description: t.meta.about.description,
+    mainEntity: { '@id': ORG_ID },
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="about"
+  title={t.meta.about.title}
+  description={t.meta.about.description}
+  schema={schema}
+>
+  <PageHero
+    locale={locale}
+    eyebrow={page.eyebrow}
+    title={page.title}
+    lede={page.lede}
+    crumbs={[{ label: t.nav.home, href: route(locale, 'home') }, { label: t.nav.about }]}
+  />
+
+  {/* ──────────────────────────────────────────────────────────────  prose */}
+  <section class="section">
+    <div class="container about__grid">
+      <div class="about__sticky">
+        <h2 class="h2 about__heading">{page.bodyTitle}</h2>
+      </div>
+
+      <div class="prose reveal">
+        {page.body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────────────────────────────────────────────────  principles */}
+  <section class="section section--tight principles">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{page.eyebrow}</p>
+        <h2 class="h2">{page.principlesTitle}</h2>
+      </div>
+
+      <FeatureGrid items={page.principles} />
+    </div>
+  </section>
+
+  {/* ───────────────────────────────────────────────────────────  coverage */}
+  {
+    SERVICE_AREAS.length > 0 && (
+      <section class="section section--tight">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">
+              <Icon name="pin" size={14} />
+              {page.coverageTitle}
+            </p>
+            <h2 class="h2">{page.coverageTitle}</h2>
+            <p class="lede">{page.coverageSub}</p>
+          </div>
+
+          <ul class="areas reveal">
+            {SERVICE_AREAS.map((area) => (
+              <li class="area">
+                <Icon name="pin" size={15} />
+                {area}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <CTABand
+    locale={locale}
+    title={page.ctaTitle}
+    body={page.ctaBody}
+    waMessage={t.form.waIntro}
+  />
+</BaseLayout>
+
+<style>
+  .about__grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 900px) {
+    .about__grid {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about__sticky {
+      position: sticky;
+      top: calc(var(--header-h) + 3rem);
+    }
+  }
+
+  .about__heading {
+    text-wrap: balance;
+  }
+
+  .prose {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 68ch;
+  }
+
+  .prose p {
+    font-size: var(--fs-lg);
+    line-height: 1.7;
+    color: var(--fg-muted);
+  }
+
+  /* Lead paragraph gets a little more presence. */
+  .prose p:first-child {
+    color: var(--fg);
+  }
+
+  .principles {
+    background: var(--bg-sunken);
+    border-block: 1px solid var(--border);
+  }
+
+  .areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .area {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+  }
+
+  .area svg {
+    color: var(--accent);
+  }
+</style>

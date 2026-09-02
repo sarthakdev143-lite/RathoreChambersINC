@@ -1,0 +1,286 @@
+---
+import Icon from './Icon.astro';
+
+import { CONTACT } from '../config/site';
+import { ui } from '../i18n/ui';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  /** Pre-selects the property type when the form sits on a service page. */
+  defaultType?: 'agricultural' | 'commercial';
+}
+
+const { locale, defaultType } = Astro.props;
+const t = ui[locale];
+---
+
+<div class="enquiry card" id="enquiry">
+  <div class="enquiry__head">
+    <h2 class="h3">{t.form.title}</h2>
+    <p class="card__body">{t.form.sub}</p>
+  </div>
+
+  {/*
+    No backend: on submit the fields are assembled into a WhatsApp message.
+    Native validation runs before the submit event fires, so `required` works.
+  */}
+  <form
+    class="enquiry__form"
+    id="enquiry-form"
+    data-wa={CONTACT.whatsapp}
+    data-intro={t.form.waIntro}
+  >
+    <div class="field">
+      <label for="ef-name">{t.form.name}</label>
+      <input
+        id="ef-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        placeholder={t.form.namePlaceholder}
+        data-wa-label={t.form.waName}
+      />
+    </div>
+
+    <div class="field">
+      <label for="ef-phone">
+        {t.form.phone} <span class="opt">({t.form.optional})</span>
+      </label>
+      <input
+        id="ef-phone"
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder={t.form.phonePlaceholder}
+        data-wa-label={t.form.waPhone}
+      />
+    </div>
+
+    <div class="field">
+      <label for="ef-intent">{t.form.intent}</label>
+      <div class="select-wrap">
+        <select id="ef-intent" name="intent" data-wa-label={t.form.waIntent}>
+          <option value="buy">{t.form.intentBuy}</option>
+          <option value="sell">{t.form.intentSell}</option>
+          <option value="lease">{t.form.intentLease}</option>
+          <option value="advice">{t.form.intentAdvice}</option>
+        </select>
+        <Icon name="chevron-down" size={16} />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="ef-type">{t.form.propertyType}</label>
+      <div class="select-wrap">
+        <select id="ef-type" name="type" data-wa-label={t.form.waType}>
+          <option value="agricultural" selected={defaultType === 'agricultural'}>
+            {t.form.typeAgricultural}
+          </option>
+          <option value="commercial" selected={defaultType === 'commercial'}>
+            {t.form.typeCommercial}
+          </option>
+          <option value="other">{t.form.typeOther}</option>
+        </select>
+        <Icon name="chevron-down" size={16} />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="ef-location">{t.form.location}</label>
+      <input
+        id="ef-location"
+        name="location"
+        type="text"
+        placeholder={t.form.locationPlaceholder}
+        data-wa-label={t.form.waLocation}
+      />
+    </div>
+
+    <div class="field">
+      <label for="ef-budget">
+        {t.form.budget} <span class="opt">({t.form.optional})</span>
+      </label>
+      <input
+        id="ef-budget"
+        name="budget"
+        type="text"
+        placeholder={t.form.budgetPlaceholder}
+        data-wa-label={t.form.waBudget}
+      />
+    </div>
+
+    <div class="field field--full">
+      <label for="ef-message">
+        {t.form.message} <span class="opt">({t.form.optional})</span>
+      </label>
+      <textarea
+        id="ef-message"
+        name="message"
+        rows="4"
+        placeholder={t.form.messagePlaceholder}
+        data-wa-label={t.form.waMessage}></textarea>
+    </div>
+
+    <div class="field field--full enquiry__submit">
+      <button type="submit" class="btn btn--wa btn--lg btn--block">
+        <Icon name="whatsapp" size={19} />
+        {t.form.submit}
+      </button>
+      <p class="enquiry__note">{t.form.submitNote}</p>
+      <noscript>
+        <p class="enquiry__note enquiry__note--warn">{t.form.noscript}</p>
+      </noscript>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const number = form.dataset.wa ?? '';
+      const lines: string[] = [`*${form.dataset.intro ?? 'Website enquiry'}*`, ''];
+
+      // Walk the controls in document order so the message reads top-to-bottom.
+      const controls = form.querySelectorAll<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >('[data-wa-label]');
+
+      controls.forEach((control) => {
+        const label = control.dataset.waLabel ?? control.name;
+
+        // For selects, send the visible (translated) option text, not the value.
+        const value =
+          control instanceof HTMLSelectElement
+            ? (control.selectedOptions[0]?.text ?? '')
+            : control.value;
+
+        const trimmed = value.trim();
+        if (trimmed) lines.push(`${label}: ${trimmed}`);
+      });
+
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>
+
+<style>
+  .enquiry {
+    gap: 1.5rem;
+    scroll-margin-top: calc(var(--header-h) + 2rem);
+  }
+
+  .enquiry__head > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .enquiry__form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 560px) {
+    .enquiry__form {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  label {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .opt {
+    font-weight: 400;
+    color: var(--fg-subtle);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    font-size: var(--fs-sm);
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    transition:
+      border-color 0.18s var(--ease),
+      box-shadow 0.18s var(--ease);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--fg-subtle);
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  input:user-invalid {
+    border-color: #c0392b;
+  }
+
+  .select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .select-wrap select {
+    appearance: none;
+    padding-right: 2.4rem;
+    cursor: pointer;
+  }
+
+  .select-wrap svg {
+    position: absolute;
+    right: 0.85rem;
+    pointer-events: none;
+    color: var(--fg-muted);
+  }
+
+  .enquiry__submit {
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .enquiry__note {
+    font-size: var(--fs-xs);
+    color: var(--fg-subtle);
+    text-align: center;
+  }
+
+  .enquiry__note--warn {
+    color: #b03a2e;
+  }
+</style>

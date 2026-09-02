@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" role="img" aria-label="Rathore Chambers INC">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#226551"/>
+      <stop offset="100%" stop-color="#0f2c22"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+  <g transform="rotate(45 20 20)">
+    <path d="M20 11h9v9h-9z" fill="#c9a227"/>
+    <path d="M11 11h18v18H11z" fill="none" stroke="#fbfaf7" stroke-width="1.6" stroke-linejoin="round" opacity=".92"/>
+    <path d="M20 11v18M11 20h18" stroke="#fbfaf7" stroke-width="1.6" stroke-linecap="round" opacity=".62"/>
+  </g>
+</svg>

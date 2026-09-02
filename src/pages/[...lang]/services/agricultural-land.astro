@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AudienceSplit from '../../../components/AudienceSplit.astro';
+import CTABand from '../../../components/CTABand.astro';
+import EnquirySection from '../../../components/EnquirySection.astro';
+import NumberedGrid from '../../../components/NumberedGrid.astro';
+import PageHero from '../../../components/PageHero.astro';
+
+import { ui } from '../../../i18n/ui';
+import { localePaths, route, type Locale } from '../../../i18n/utils';
+import { absRoute, breadcrumbSchema, faqSchema, serviceSchema } from '../../../lib/seo';
+
+export const getStaticPaths = localePaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const t = ui[locale];
+const page = t.agriculturalLand;
+
+// The land-specific subset of the FAQ, so the rich result matches the page.
+const pageFaq = [t.faq[0], t.faq[1], t.faq[2], t.faq[4]];
+
+const schema = [
+  breadcrumbSchema([
+    { name: t.nav.home, url: absRoute(locale, 'home') },
+    { name: t.nav.services, url: absRoute(locale, 'services') },
+    { name: page.title, url: absRoute(locale, 'agriculturalLand') },
+  ]),
+  serviceSchema({
+    locale,
+    name: t.meta.agriculturalLand.title,
+    description: t.meta.agriculturalLand.description,
+    url: absRoute(locale, 'agriculturalLand'),
+    serviceType: 'Agricultural land brokerage',
+  }),
+  faqSchema(pageFaq),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="agriculturalLand"
+  title={t.meta.agriculturalLand.title}
+  description={t.meta.agriculturalLand.description}
+  schema={schema}
+>
+  <PageHero
+    locale={locale}
+    eyebrow={page.eyebrow}
+    title={page.title}
+    native={page.native}
+    lede={page.lede}
+    crumbs={[
+      { label: t.nav.home, href: route(locale, 'home') },
+      { label: t.nav.services, href: route(locale, 'services') },
+      { label: page.title },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <AudienceSplit
+        columns={[
+          { title: page.forBuyersTitle, icon: 'search', points: page.forBuyers },
+          { title: page.forSellersTitle, icon: 'handshake', points: page.forSellers },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="section section--tight watch surface-dark">
+    <div class="grid-lines" aria-hidden="true"></div>
+    <div class="container watch__inner">
+      <div class="section-head">
+        <p class="eyebrow">{t.services.eyebrow}</p>
+        <h2 class="h2">{page.watchTitle}</h2>
+      </div>
+
+      <NumberedGrid items={page.watch} />
+    </div>
+  </section>
+
+  <EnquirySection
+    locale={locale}
+    title={page.ctaTitle}
+    body={page.ctaBody}
+    defaultType="agricultural"
+  />
+
+  <CTABand
+    locale={locale}
+    title={t.home.ctaTitle}
+    body={t.home.ctaBody}
+    waMessage={`${t.form.waIntro} — ${page.title}`}
+  />
+</BaseLayout>
+
+<style>
+  .watch {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .watch__inner {
+    position: relative;
+    z-index: 1;
+  }
+</style>

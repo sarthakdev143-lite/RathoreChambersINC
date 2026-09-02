@@ -1,0 +1,80 @@
+---
+import Breadcrumbs, { type Crumb } from './Breadcrumbs.astro';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  /** Optional second-script rendering of the title, e.g. कृषि भूमि. */
+  native?: string;
+  lede?: string;
+  crumbs?: Crumb[];
+}
+
+const { locale, eyebrow, title, native, lede, crumbs } = Astro.props;
+---
+
+<section class="page-hero surface-dark">
+  <div class="grid-lines" aria-hidden="true"></div>
+  <div class="glow glow--a" aria-hidden="true"></div>
+
+  <div class="container page-hero__inner">
+    {crumbs && crumbs.length > 0 && <Breadcrumbs locale={locale} items={crumbs} />}
+
+    <p class="eyebrow">{eyebrow}</p>
+
+    <h1 class="page-hero__title">
+      {title}
+      {native && <span class="page-hero__native deva">{native}</span>}
+    </h1>
+
+    {lede && <p class="lede page-hero__lede">{lede}</p>}
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow--a {
+    width: 46rem;
+    height: 26rem;
+    top: -14rem;
+    right: -10rem;
+    background: radial-gradient(circle, rgb(46 139 107 / 0.4), transparent 68%);
+  }
+
+  .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .page-hero__title {
+    font-size: var(--fs-4xl);
+    max-width: 20ch;
+  }
+
+  .page-hero__native {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.46em;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--c-gold-400);
+    opacity: 0.9;
+  }
+
+  .page-hero__lede {
+    max-width: 58ch;
+  }
+</style>

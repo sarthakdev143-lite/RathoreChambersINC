@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  columns: { title: string; icon: string; points: readonly string[] }[];
+}
+
+const { columns } = Astro.props;
+---
+
+<div class="split">
+  {
+    columns.map((column, index) => (
+      <section class="split__col reveal" style={`--reveal-delay:${index * 80}ms`}>
+        <header class="split__head">
+          <span class="card-icon">
+            <Icon name={column.icon as any} size={20} />
+          </span>
+          <h2 class="split__title">{column.title}</h2>
+        </header>
+
+        <ul class="checklist">
+          {column.points.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .split {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 860px) {
+    .split {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .split__col {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .split__head {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .split__head .card-icon {
+    margin-bottom: 0.85rem;
+  }
+
+  .split__title {
+    font-size: var(--fs-xl);
+  }
+</style>

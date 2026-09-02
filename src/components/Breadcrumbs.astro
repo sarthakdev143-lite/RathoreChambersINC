@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { ui } from '../i18n/ui';
+import type { Locale } from '../i18n/utils';
+
+export interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  locale: Locale;
+  items: Crumb[];
+}
+
+const { locale, items } = Astro.props;
+const t = ui[locale];
+---
+
+<nav class="crumbs" aria-label={t.common.breadcrumb}>
+  <ol>
+    {
+      items.map((item, index) => (
+        <li>
+          {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+          {index < items.length - 1 && <Icon name="chevron-down" size={12} class="crumbs__sep" />}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-xs);
+  }
+
+  .crumbs li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .crumbs a {
+    color: var(--fg-subtle);
+    text-decoration: none;
+    transition: color 0.18s var(--ease);
+  }
+
+  .crumbs a:hover {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+
+  .crumbs [aria-current] {
+    color: var(--fg-muted);
+  }
+
+  .crumbs__sep {
+    transform: rotate(-90deg);
+    opacity: 0.35;
+  }
+</style>

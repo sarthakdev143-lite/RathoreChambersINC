@@ -1,0 +1,75 @@
+---
+interface Props {
+  items: readonly { title: string; body: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="numbered">
+  {
+    items.map((item, index) => (
+      <li class="numbered__item reveal" style={`--reveal-delay:${Math.min(index, 5) * 60}ms`}>
+        <span class="numbered__num">{String(index + 1).padStart(2, '0')}</span>
+        <h3 class="numbered__title">{item.title}</h3>
+        <p class="numbered__body">{item.body}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .numbered {
+    display: grid;
+    gap: 1px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .numbered {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .numbered {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .numbered__item {
+    padding: clamp(1.5rem, 2.6vw, 2rem);
+    background: var(--bg);
+    transition: background-color 0.25s var(--ease);
+  }
+
+  .numbered__item:hover {
+    background: var(--bg-elev);
+  }
+
+  .numbered__num {
+    display: block;
+    margin-bottom: 0.9rem;
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+
+  .numbered__title {
+    font-size: var(--fs-base);
+    margin-bottom: 0.4rem;
+  }
+
+  .numbered__body {
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+  }
+</style>

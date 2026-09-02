@@ -1,0 +1,184 @@
+---
+import { Font } from 'astro:assets';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+
+import { SITE } from '../config/site';
+import { ui } from '../i18n/ui';
+import { LOCALE_TAGS, LOCALES, type Locale, type RouteKey } from '../i18n/utils';
+import {
+  abs,
+  absRoute,
+  alternates,
+  graph,
+  organizationSchema,
+  webPageSchema,
+  websiteSchema,
+} from '../lib/seo';
+
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  routeKey: RouteKey;
+  /** Page-specific title. Appended with the brand name unless `fullTitle` is set. */
+  title: string;
+  /** Use the exact string as <title>, bypassing the brand suffix. */
+  fullTitle?: string;
+  description: string;
+  /** Extra JSON-LD nodes merged into the page's @graph. */
+  schema?: object[];
+  /** Keeps the page out of search results (used by 404). */
+  noindex?: boolean;
+}
+
+const {
+  locale,
+  routeKey,
+  title,
+  fullTitle,
+  description,
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const t = ui[locale];
+const canonical = absRoute(locale, routeKey);
+const documentTitle = fullTitle ?? `${title} | ${SITE.name}`;
+const ogImage = abs('/og.png');
+
+const jsonLd = graph([
+  organizationSchema(locale),
+  websiteSchema(locale),
+  webPageSchema({ locale, url: canonical, title: documentTitle, description }),
+  ...schema,
+]);
+---
+
+<!doctype html>
+<html lang={LOCALE_TAGS[locale]} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+
+    {/* Tells search engines which language version to serve to whom. */}
+    {
+      !noindex &&
+        alternates(routeKey).map((alt) => (
+          <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+        ))
+    }
+
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'}
+    />
+    <meta name="theme-color" content="#0a1310" />
+    <meta name="format-detection" content="telephone=no" />
+
+    {/* Open Graph — drives the preview card on WhatsApp, Facebook and LinkedIn. */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${t.brand.tagline}`} />
+    <meta property="og:locale" content={LOCALE_TAGS[locale].replace('-', '_')} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta property="og:locale:alternate" content={LOCALE_TAGS[l].replace('-', '_')} />
+      ))
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={documentTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    {/* Self-hosted, subsetted. Above-the-fold faces are preloaded per language. */}
+    <Font cssVariable="--font-display" preload={locale === 'en'} />
+    <Font cssVariable="--font-sans" preload={locale === 'en'} />
+    <Font cssVariable="--font-deva" preload={locale === 'hi'} />
+    <Font cssVariable="--font-mono" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{t.nav.skipToContent}</a>
+
+    <Header locale={locale} routeKey={routeKey} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+    <WhatsAppFab locale={locale} />
+
+    <script>
+      // Progressive enhancement: fade sections in as they enter the viewport.
+      // Anything already on screen is revealed immediately, so there is never a
+      // blank first paint.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll<HTMLElement>('.reveal');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        );
+
+        targets.forEach((el) => observer.observe(el));
+      }
+    </script>
+
+    <style>
+      .skip-link {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -110%);
+        z-index: 200;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0 0 var(--radius) var(--radius);
+        background: var(--c-ink-900);
+        color: var(--c-cream-50);
+        font-size: var(--fs-sm);
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.2s var(--ease);
+      }
+
+      .skip-link:focus-visible {
+        transform: translate(-50%, 0);
+      }
+
+      main {
+        /* The header is fixed; this keeps content clear of it. */
+        padding-top: var(--header-h);
+      }
+    </style>
+  </body>
+</html>

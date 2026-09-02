@@ -1,0 +1,314 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+import Logo from './Logo.astro';
+
+import { SITE, CONTACT, addressOneLine, hasAddress, socialLinks } from '../config/site';
+import { ui } from '../i18n/ui';
+import { route, type Locale, type RouteKey } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = ui[locale];
+
+const year = new Date().getFullYear();
+
+const serviceLinks: { key: RouteKey; label: string }[] = [
+  { key: 'services', label: t.nav.services },
+  { key: 'agriculturalLand', label: t.nav.agriculturalLand },
+  { key: 'commercialShops', label: t.nav.commercialShops },
+];
+
+const companyLinks: { key: RouteKey; label: string }[] = [
+  { key: 'home', label: t.nav.home },
+  { key: 'about', label: t.nav.about },
+  { key: 'contact', label: t.nav.contact },
+];
+
+const socialIcons: Record<string, IconName> = {
+  facebook: 'facebook',
+  instagram: 'instagram',
+  linkedin: 'linkedin',
+  youtube: 'youtube',
+  x: 'x',
+};
+
+const socialLabels: Record<string, string> = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  youtube: 'YouTube',
+  x: 'X',
+};
+---
+
+<footer class="footer surface-dark">
+  <div class="grid-lines" aria-hidden="true"></div>
+
+  <div class="container footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="footer__logo" href={route(locale, 'home')}>
+          <Logo class="footer__mark" />
+          <span>Rathore Chambers <span class="gold">INC</span></span>
+        </a>
+        <p class="footer__blurb">{t.footer.blurb}</p>
+
+        {
+          socialLinks.length > 0 && (
+            <ul class="socials" aria-label={t.footer.followTitle}>
+              {socialLinks.map((social) => (
+                <li>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={socialLabels[social.network] ?? social.network}
+                  >
+                    <Icon name={socialIcons[social.network] ?? 'globe'} size={18} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <nav class="footer__col" aria-label={t.footer.servicesTitle}>
+        <h2 class="footer__heading">{t.footer.servicesTitle}</h2>
+        <ul class="footer__links">
+          {
+            serviceLinks.map((link) => (
+              <li>
+                <a href={route(locale, link.key)}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label={t.footer.companyTitle}>
+        <h2 class="footer__heading">{t.footer.companyTitle}</h2>
+        <ul class="footer__links">
+          {
+            companyLinks.map((link) => (
+              <li>
+                <a href={route(locale, link.key)}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2 class="footer__heading">{t.footer.contactTitle}</h2>
+        <ul class="footer__contact">
+          <li>
+            <Icon name="phone" size={16} />
+            <a href={`tel:${CONTACT.phone.e164}`}>{CONTACT.phone.display}</a>
+          </li>
+          <li>
+            <Icon name="mail" size={16} />
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          </li>
+          {
+            hasAddress && (
+              <li>
+                <Icon name="pin" size={16} />
+                <span>{addressOneLine}</span>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__legal">
+        &copy; {year} {SITE.name}. {t.footer.rights}
+      </p>
+      <p class="footer__disclaimer">{t.footer.disclaimer}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+  }
+
+  .footer__top {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer__top {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 980px) {
+    .footer__top {
+      grid-template-columns: 2.1fr 1fr 1fr 1.4fr;
+      gap: 3rem;
+    }
+
+    .footer__brand {
+      grid-column: auto;
+    }
+  }
+
+  /* ---------------------------------------------------------------- brand */
+
+  .footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--ff-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--fg);
+  }
+
+  .footer__mark {
+    width: 34px;
+    height: 34px;
+    flex: none;
+  }
+
+  .gold {
+    color: var(--c-gold-400);
+  }
+
+  .footer__blurb {
+    margin-top: 1rem;
+    max-width: 34rem;
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+  }
+
+  .socials {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--fg-muted);
+    transition:
+      color 0.2s var(--ease),
+      border-color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
+  }
+
+  .socials a:hover {
+    color: var(--c-ink-900);
+    background: var(--c-gold-400);
+    border-color: var(--c-gold-400);
+  }
+
+  /* --------------------------------------------------------------- columns */
+
+  .footer__heading {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-gold-400);
+    margin-bottom: 1.1rem;
+  }
+
+  .footer__links,
+  .footer__contact {
+    display: grid;
+    gap: 0.7rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-sm);
+  }
+
+  .footer__links a,
+  .footer__contact a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 0.18s var(--ease);
+  }
+
+  .footer__links a:hover,
+  .footer__contact a:hover {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+
+  .footer__contact li {
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 0.7rem;
+    align-items: start;
+    color: var(--fg-muted);
+  }
+
+  .footer__contact svg {
+    margin-top: 0.3em;
+    color: var(--c-gold-400);
+    opacity: 0.85;
+  }
+
+  /* ---------------------------------------------------------------- bottom */
+
+  .footer__bottom {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 900px) {
+    .footer__bottom {
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+
+  .footer__legal {
+    font-size: var(--fs-xs);
+    color: var(--fg-muted);
+    white-space: nowrap;
+  }
+
+  .footer__disclaimer {
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+    color: var(--fg-subtle);
+    max-width: 70ch;
+  }
+</style>

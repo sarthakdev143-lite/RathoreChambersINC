@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CTABand from '../../../components/CTABand.astro';
+import FeatureGrid from '../../../components/FeatureGrid.astro';
+import Icon, { type IconName } from '../../../components/Icon.astro';
+import PageHero from '../../../components/PageHero.astro';
+
+import { ui } from '../../../i18n/ui';
+import { localePaths, route, type Locale, type RouteKey } from '../../../i18n/utils';
+import { absRoute, breadcrumbSchema, serviceSchema } from '../../../lib/seo';
+
+export const getStaticPaths = localePaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const t = ui[locale];
+
+const crumbs = [
+  { label: t.nav.home, href: route(locale, 'home') },
+  { label: t.nav.services },
+];
+
+const schema = [
+  breadcrumbSchema([
+    { name: t.nav.home, url: absRoute(locale, 'home') },
+    { name: t.nav.services, url: absRoute(locale, 'services') },
+  ]),
+  ...t.services.items.map((item) =>
+    serviceSchema({
+      locale,
+      name: item.title,
+      description: item.summary,
+      url: absRoute(locale, item.key as RouteKey),
+      serviceType: item.key === 'agriculturalLand' ? 'Agricultural land brokerage' : 'Commercial property brokerage',
+    }),
+  ),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="services"
+  title={t.meta.services.title}
+  description={t.meta.services.description}
+  schema={schema}
+>
+  <PageHero
+    locale={locale}
+    eyebrow={t.services.eyebrow}
+    title={t.services.title}
+    lede={t.services.sub}
+    crumbs={crumbs}
+  />
+
+  {/* ───────────────────────────────────────────────────  the two services */}
+  <section class="section">
+    <div class="container">
+      <div class="offers">
+        {
+          t.services.items.map((item, index) => (
+            <article class="offer reveal" style={`--reveal-delay:${index * 80}ms`}>
+              <div class="offer__aside">
+                <span class="card-icon offer__icon">
+                  <Icon name={item.icon as IconName} size={24} />
+                </span>
+                <span class="offer__index">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+
+              <div class="offer__main">
+                <p class="offer__native deva">{item.native}</p>
+                <h2 class="offer__title">{item.title}</h2>
+                <p class="lede offer__summary">{item.summary}</p>
+
+                <ul class="checklist offer__points">
+                  {item.points.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+
+                <a class="btn btn--primary offer__cta" href={route(locale, item.key as RouteKey)}>
+                  {t.common.readMore}
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ─────────────────────────────────────────────────  included in both */}
+  <section class="section section--tight included">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{t.services.alsoEyebrow}</p>
+        <h2 class="h2">{t.services.alsoTitle}</h2>
+      </div>
+
+      <FeatureGrid items={t.services.also} />
+    </div>
+  </section>
+
+  <CTABand
+    locale={locale}
+    title={t.home.ctaTitle}
+    body={t.home.ctaBody}
+    waMessage={t.form.waIntro}
+  />
+</BaseLayout>
+
+<style>
+  .offers {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .offer {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (min-width: 800px) {
+    .offer {
+      grid-template-columns: auto 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .offer__aside {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (min-width: 800px) {
+    .offer__aside {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .offer__icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 0;
+  }
+
+  .offer__index {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.1em;
+    color: var(--fg-subtle);
+  }
+
+  .offer__native {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .offer__title {
+    font-size: var(--fs-2xl);
+  }
+
+  .offer__summary {
+    margin-top: 0.75rem;
+  }
+
+  .offer__points {
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 620px) {
+    .offer__points {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2rem;
+    }
+  }
+
+  .offer__cta {
+    margin-top: 2rem;
+  }
+
+  .included {
+    background: var(--bg-sunken);
+    border-block: 1px solid var(--border);
+  }
+</style>

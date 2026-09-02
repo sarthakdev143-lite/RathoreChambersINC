@@ -1,0 +1,112 @@
+---
+import Icon from './Icon.astro';
+
+import { CONTACT, whatsappLink } from '../config/site';
+import { ui } from '../i18n/ui';
+import { route, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  body: string;
+  /** Pre-fills the WhatsApp message so you know which page the lead came from. */
+  waMessage?: string;
+}
+
+const { locale, title, body, waMessage } = Astro.props;
+const t = ui[locale];
+---
+
+<section class="cta surface-dark">
+  <div class="grid-lines" aria-hidden="true"></div>
+  <div class="glow glow--cta" aria-hidden="true"></div>
+
+  <div class="container cta__inner reveal">
+    <div class="cta__text">
+      <h2 class="h2">{title}</h2>
+      <p class="lede cta__body">{body}</p>
+    </div>
+
+    <div class="cta__actions">
+      <a
+        class="btn btn--wa btn--lg"
+        href={whatsappLink(waMessage)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="whatsapp" size={19} />
+        {t.common.whatsapp}
+      </a>
+
+      <a class="btn btn--outline btn--lg" href={`tel:${CONTACT.phone.e164}`}>
+        <Icon name="phone" size={17} />
+        {CONTACT.phone.display}
+      </a>
+
+      <a class="cta__link" href={route(locale, 'contact')}>
+        {t.common.getInTouch}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow--cta {
+    width: 40rem;
+    height: 24rem;
+    bottom: -14rem;
+    left: 50%;
+    translate: -50% 0;
+    background: radial-gradient(circle, rgb(201 162 39 / 0.28), transparent 70%);
+  }
+
+  .cta__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2rem;
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  @media (min-width: 900px) {
+    .cta__inner {
+      grid-template-columns: 1.25fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+  }
+
+  .cta__body {
+    margin-top: 1rem;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cta__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-inline: 0.5rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--fg-muted);
+    text-decoration: none;
+    transition: color 0.2s var(--ease);
+  }
+
+  .cta__link:hover {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,295 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+
+import { CONTACT, addressOneLine, hasAddress, whatsappLink } from '../../config/site';
+import { ui } from '../../i18n/ui';
+import { localePaths, route, type Locale } from '../../i18n/utils';
+import { ORG_ID, absRoute, breadcrumbSchema } from '../../lib/seo';
+
+export const getStaticPaths = localePaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const t = ui[locale];
+const page = t.contact;
+
+const channels = [
+  {
+    icon: 'whatsapp' as const,
+    card: page.whatsappCard,
+    href: whatsappLink(t.form.waIntro),
+    value: CONTACT.phone.display,
+    external: true,
+    accent: 'wa',
+  },
+  {
+    icon: 'phone' as const,
+    card: page.phoneCard,
+    href: `tel:${CONTACT.phone.e164}`,
+    value: CONTACT.phone.display,
+    external: false,
+    accent: '',
+  },
+  {
+    icon: 'mail' as const,
+    card: page.emailCard,
+    href: `mailto:${CONTACT.email}`,
+    value: CONTACT.email,
+    external: false,
+    accent: '',
+  },
+];
+
+// Weekday list localised for display; the schema uses the English day names.
+const dayFormatter = new Intl.DateTimeFormat(locale === 'hi' ? 'hi-IN' : 'en-IN', {
+  weekday: 'long',
+});
+// 2024-01-01 was a Monday; index 0 => Monday … 5 => Saturday.
+const openDays = CONTACT.hours.days.map((_, i) =>
+  dayFormatter.format(new Date(Date.UTC(2024, 0, 1 + i))),
+);
+const dayRange =
+  openDays.length > 1 ? `${openDays[0]} – ${openDays[openDays.length - 1]}` : openDays[0];
+
+const schema = [
+  breadcrumbSchema([
+    { name: t.nav.home, url: absRoute(locale, 'home') },
+    { name: t.nav.contact, url: absRoute(locale, 'contact') },
+  ]),
+  {
+    '@type': 'ContactPage',
+    '@id': `${absRoute(locale, 'contact')}#contact`,
+    url: absRoute(locale, 'contact'),
+    name: t.meta.contact.title,
+    description: t.meta.contact.description,
+    mainEntity: { '@id': ORG_ID },
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  routeKey="contact"
+  title={t.meta.contact.title}
+  description={t.meta.contact.description}
+  schema={schema}
+>
+  <PageHero
+    locale={locale}
+    eyebrow={page.eyebrow}
+    title={page.title}
+    lede={page.lede}
+    crumbs={[{ label: t.nav.home, href: route(locale, 'home') }, { label: t.nav.contact }]}
+  />
+
+  {/* ───────────────────────────────────────────────────────────  channels */}
+  <section class="section section--tight">
+    <div class="container">
+      <h2 class="visually-hidden">{page.channelsTitle}</h2>
+
+      <ul class="channels">
+        {
+          channels.map((channel, index) => (
+            <li
+              class="channel card card--interactive reveal"
+              style={`--reveal-delay:${index * 70}ms`}
+            >
+              <a
+                class="channel__link"
+                href={channel.href}
+                target={channel.external ? '_blank' : undefined}
+                rel={channel.external ? 'noopener noreferrer' : undefined}
+              >
+                <span class={`card-icon ${channel.accent === 'wa' ? 'card-icon--wa' : ''}`}>
+                  <Icon name={channel.icon} size={20} />
+                </span>
+
+                <h3 class="card__title">{channel.card.title}</h3>
+                <p class="card__body">{channel.card.body}</p>
+
+                <span class="channel__value">{channel.value}</span>
+
+                <span class="link-arrow channel__action">
+                  {channel.card.action}
+                  <Icon name="arrow-right" size={15} />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ───────────────────────────────────────────────  form + office details */}
+  <section class="section contact-main">
+    <div class="container contact-main__inner">
+      <div class="reveal">
+        <EnquiryForm locale={locale} />
+      </div>
+
+      <aside class="details reveal" style="--reveal-delay:100ms">
+        {
+          hasAddress && (
+            <div class="detail">
+              <h2 class="detail__title">
+                <Icon name="pin" size={16} />
+                {page.officeTitle}
+              </h2>
+              <p class="detail__text">{addressOneLine}</p>
+              {CONTACT.mapUrl && (
+                <a
+                  class="link-arrow"
+                  href={CONTACT.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t.common.directions}
+                  <Icon name="arrow-up-right" size={15} />
+                </a>
+              )}
+            </div>
+          )
+        }
+
+        <div class="detail">
+          <h2 class="detail__title">
+            <Icon name="clock" size={16} />
+            {page.hoursTitle}
+          </h2>
+          <p class="detail__text">
+            {dayRange}<br />
+            <strong>{CONTACT.hours.opens} – {CONTACT.hours.closes}</strong>
+          </p>
+          <p class="detail__note">{page.hoursNote}</p>
+        </div>
+
+        <div class="detail">
+          <h2 class="detail__title">
+            <Icon name="document" size={16} />
+            {page.prepareTitle}
+          </h2>
+          <ul class="checklist detail__list">
+            {page.prepare.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="detail__note">{page.prepareNote}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .channels {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (min-width: 720px) {
+    .channels {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .channel {
+    padding: 0;
+  }
+
+  .channel__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    text-decoration: none;
+  }
+
+  .card-icon--wa {
+    color: #128c4a;
+    background: rgb(37 211 102 / 0.12);
+    border-color: rgb(37 211 102 / 0.3);
+  }
+
+  .channel__value {
+    margin-top: 0.25rem;
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--fg);
+    word-break: break-word;
+  }
+
+  .channel__action {
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  /* --------------------------------------------------------- form + aside */
+
+  .contact-main {
+    background: var(--bg-sunken);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-main__inner {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 980px) {
+    .contact-main__inner {
+      grid-template-columns: 1.3fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+
+  .details {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .detail {
+    padding: clamp(1.35rem, 2.4vw, 1.75rem);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .detail__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: var(--fs-base);
+  }
+
+  .detail__title svg {
+    color: var(--accent);
+  }
+
+  .detail__text {
+    font-size: var(--fs-sm);
+    color: var(--fg-muted);
+    line-height: 1.7;
+  }
+
+  .detail__text strong {
+    color: var(--fg);
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+  }
+
+  .detail__note {
+    margin-top: 0.75rem;
+    font-size: var(--fs-xs);
+    color: var(--fg-subtle);
+  }
+
+  .detail__list {
+    margin-top: 0.25rem;
+  }
+</style>
