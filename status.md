@@ -113,7 +113,7 @@ dist/  # built output (13 pages, sitemap-index.xml + sitemap-0.xml)
 
 **All placeholders are in `src/config/site.ts` — TODO comments mark them:**
 
-- `SITE.url` → `https://www.rathorechambers.com` (replace with real domain before launch; used for canonical + sitemap)
+- `SITE.url` → **now `https://rathore-chambers-inc.vercel.app`** (the live Vercel alias, so deployed pages reference themselves). Replace with the real domain once it points at Vercel, then rebuild + redeploy — it is baked into canonical, `og:url`, hreflang and the sitemap at build time.
 - `SITE.foundingYear` → `''` (optional)
 - `CONTACT.phone.e164` → `+919000000000` / display `+91 90000 00000`
 - `CONTACT.whatsapp` → `919000000000` (digits only, with country code, no `+`)
