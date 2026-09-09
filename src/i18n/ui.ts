@@ -22,6 +22,7 @@ const en = {
     services: 'Services',
     agriculturalLand: 'Agricultural land',
     commercialShops: 'Commercial shops',
+    itStaffing: 'IT staff augmentation',
     about: 'About',
     contact: 'Contact',
     menu: 'Menu',
@@ -56,7 +57,7 @@ const en = {
     services: {
       title: 'Our Services',
       description:
-        'Property sourcing, title verification, negotiation, documentation and registration support for agricultural land and commercial shops.',
+        'Property sourcing, title verification, negotiation, documentation and registration support for agricultural land and commercial shops, plus IT staff augmentation for teams that need to scale engineering capacity.',
     },
     agriculturalLand: {
       title: 'Buy & Sell Agricultural Land (Krishi Bhumi)',
@@ -67,6 +68,11 @@ const en = {
       title: 'Commercial Shops & Property',
       description:
         'Buy, sell or lease commercial shops, showrooms and retail units. Location assessment, rental yield analysis, title due diligence, negotiation and documentation.',
+    },
+    itStaffing: {
+      title: 'IT Staff Augmentation — Hire Vetted Developers',
+      description:
+        'Extend your engineering team with vetted developers, QA engineers and DevOps specialists on flexible staff augmentation, dedicated team or project-based engagements.',
     },
     about: {
       title: 'About Us',
@@ -119,9 +125,9 @@ const en = {
     },
 
     servicesEyebrow: 'What we do',
-    servicesTitle: 'Two things, done properly',
+    servicesTitle: 'Three things, done properly',
     servicesSub:
-      'We deal in the purchase and sale of agricultural land and commercial property. Everything we offer sits under one of those two.',
+      'We deal in the purchase and sale of agricultural land and commercial property, and we help companies extend their engineering teams through IT staff augmentation. Everything we offer sits under one of those three.',
 
     whyEyebrow: 'Why work with us',
     whyTitle: 'Paperwork first, price second, pressure never',
@@ -197,8 +203,8 @@ const en = {
 
   services: {
     eyebrow: 'Services',
-    title: 'Purchase & sale of agricultural land and commercial shops',
-    sub: 'We act for buyers and for sellers. The work is the same either way: find the right counterparty, verify the paperwork, agree fair terms, and complete the transaction cleanly.',
+    title: 'Property advisory and IT staff augmentation',
+    sub: 'We deal in the purchase and sale of agricultural land and commercial shops, and we help companies extend their engineering teams with vetted IT talent. Two very different domains, the same standard of care.',
 
     items: [
       {
@@ -233,10 +239,26 @@ const en = {
           'Documentation, registration and possession',
         ],
       },
+      {
+        key: 'itStaffing',
+        icon: 'code',
+        title: 'IT staff augmentation',
+        native: 'आईटी स्टाफ संवर्धन',
+        summary:
+          'Extend your engineering team with vetted developers, QA engineers and DevOps specialists — on staff augmentation, dedicated team or project-based engagements.',
+        points: [
+          'Vetted developers, QA and DevOps talent',
+          'Staff augmentation, dedicated team or project-based models',
+          'Fast shortlist and interview turnaround',
+          'Full-stack, cloud, data and mobile coverage',
+          'Transparent, ramp-up-friendly commercials',
+          'You keep control of the work; we keep the bench full',
+        ],
+      },
     ],
 
-    alsoEyebrow: 'Across both',
-    alsoTitle: 'What every engagement includes',
+    alsoEyebrow: 'Across our property services',
+    alsoTitle: 'What every property engagement includes',
     also: [
       {
         icon: 'search',
@@ -389,6 +411,144 @@ const en = {
       'Tell us the location and the asking price and we will tell you what the numbers really look like.',
   },
 
+  itStaffing: {
+    eyebrow: 'IT vertical',
+    title: 'IT staff augmentation',
+    native: 'आईटी स्टाफ संवर्धन',
+    lede: 'When your engineering team needs to move faster than your hiring pipeline allows, we plug in vetted developers, QA engineers and DevOps specialists who can start contributing in days, not months.',
+
+    forClientsTitle: 'If you are hiring',
+    forClients: [
+      'A shortlist of pre-vetted engineers matched to your stack and timezone',
+      'Flexible engagement — staff augmentation, a dedicated team, or a fixed-scope project',
+      'You interview and approve every profile before they join your team',
+      'Direct day-to-day management, the same as an in-house hire',
+      'Simple, transparent monthly billing with no long lock-in',
+      'Scale the team up or down as the roadmap changes',
+    ],
+
+    forTalentTitle: 'If you are a tech professional',
+    forTalent: [
+      'Placement on real client projects, not bench time',
+      'Clear contracts and on-time, predictable payouts',
+      'Work across modern stacks — cloud, data, mobile and web',
+      'Support during onboarding, code reviews and the first sprint',
+      'Feedback carried back honestly from the client side',
+      'A point of contact for anything that affects your engagement',
+    ],
+
+    modelsEyebrow: 'Engagement models',
+    modelsTitle: 'Three ways to work with us',
+    modelsSub:
+      'Pick the model that matches how much control and continuity you need — you can switch as the project matures.',
+    models: [
+      {
+        icon: 'users',
+        title: 'Staff augmentation',
+        body: 'Individual engineers join your existing team and report into your process, tools and stand-ups. Best when you already have technical leadership in place.',
+      },
+      {
+        icon: 'layers',
+        title: 'Dedicated team',
+        body: 'A self-contained squad — engineers, QA and a lead — assigned to your roadmap full-time. Best for a sustained build that needs its own cadence.',
+      },
+      {
+        icon: 'rocket',
+        title: 'Project-based',
+        body: 'A fixed scope, fixed timeline delivery with a single point of accountability. Best when the requirement is well-defined and the deadline is firm.',
+      },
+    ],
+
+    stackEyebrow: 'Coverage',
+    stackTitle: 'Talent across the stack',
+    stackSub: 'If it is not listed here, ask us — the roster is broader than this page.',
+    stack: [
+      { category: 'Frontend', items: ['React', 'Next.js', 'Vue', 'Angular', 'TypeScript'] },
+      { category: 'Backend', items: ['Node.js', 'Java', 'Python', 'Go', '.NET'] },
+      { category: 'Cloud & DevOps', items: ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes'] },
+      { category: 'Data & AI', items: ['PostgreSQL', 'MongoDB', 'Spark', 'LLM integrations'] },
+      { category: 'Mobile', items: ['React Native', 'Flutter', 'iOS', 'Android'] },
+      { category: 'Quality', items: ['Manual QA', 'Automation', 'Performance testing'] },
+    ],
+
+    processEyebrow: 'How it works',
+    processTitle: 'From requirement to onboarded engineer',
+    processSub: 'A typical engagement moves fast once we understand what you need.',
+    process: [
+      {
+        title: 'Scope the requirement',
+        body: 'Role, seniority, stack, timezone overlap and the engagement model that fits your team.',
+      },
+      {
+        title: 'Shortlist and interview',
+        body: 'A small set of pre-screened profiles, interviewed and technically assessed before you see them.',
+      },
+      {
+        title: 'You select and approve',
+        body: 'You run your own interview round and sign off before anyone joins your team.',
+      },
+      {
+        title: 'Onboard and ramp up',
+        body: 'Access, tooling and a short ramp-up window, with a check-in at the end of the first sprint.',
+      },
+    ],
+
+    watchTitle: 'What determines whether an engagement works',
+    watch: [
+      {
+        title: 'Skill verification',
+        body: 'Every engineer is technically screened before being shortlisted, not just resume-matched.',
+      },
+      {
+        title: 'Timezone overlap',
+        body: 'Enough working-hours overlap for daily stand-ups and quick decisions, not just async handoffs.',
+      },
+      {
+        title: 'IP and confidentiality',
+        body: 'NDAs and IP assignment in place before any code or credentials are shared.',
+      },
+      {
+        title: 'Communication cadence',
+        body: 'Agreed check-ins, reporting and escalation paths from day one.',
+      },
+      {
+        title: 'Ramp-up speed',
+        body: 'How quickly someone goes from onboarded to actually shipping.',
+      },
+      {
+        title: 'Exit clarity',
+        body: 'A clean handover process if an engagement ends or a role is no longer needed.',
+      },
+    ],
+
+    faq: [
+      {
+        q: 'What is IT staff augmentation?',
+        a: 'It is hiring individual engineers or a small team to work as an extension of your own — under your direction, tools and process — without the overhead of a direct full-time hire. You get the control of an in-house team member with the flexibility of a contract engagement.',
+      },
+      {
+        q: 'How fast can you onboard a developer?',
+        a: 'For common stacks we can usually put a shortlist in front of you within a few working days. Niche skill sets or senior and lead roles take longer because the pool of genuinely qualified people is smaller.',
+      },
+      {
+        q: 'Do we get to interview candidates ourselves?',
+        a: 'Yes. We pre-screen for technical skill and communication, but you run your own interview and make the final call before anyone joins your team.',
+      },
+      {
+        q: 'Who manages the engineer day to day?',
+        a: 'You do, for staff augmentation — they work inside your process and tools like any other team member. For a dedicated team or project-based engagement, we provide a lead who manages delivery and reports to you.',
+      },
+      {
+        q: 'What happens if an engagement is not working out?',
+        a: 'Tell us early. We would rather swap a profile in the first few weeks than let a bad fit run its course, and the contracts are structured so that is a straightforward change, not a renegotiation.',
+      },
+    ],
+
+    ctaTitle: 'Tell us the role, the stack and the timeline',
+    ctaBody:
+      'Share what you are trying to build and we will tell you honestly what a realistic shortlist and timeline look like.',
+  },
+
   about: {
     eyebrow: 'About',
     title: 'A property practice built on verified paperwork',
@@ -495,6 +655,7 @@ const en = {
     propertyType: 'Property type',
     typeAgricultural: 'Agricultural land',
     typeCommercial: 'Commercial shop or property',
+    typeIT: 'IT staff augmentation requirement',
     typeOther: 'Something else',
     location: 'Location or area',
     locationPlaceholder: 'Village, city or district',
@@ -587,6 +748,7 @@ const hi: UI = {
     services: 'सेवाएँ',
     agriculturalLand: 'कृषि भूमि',
     commercialShops: 'व्यावसायिक दुकानें',
+    itStaffing: 'आईटी स्टाफिंग',
     about: 'हमारे बारे में',
     contact: 'संपर्क',
     menu: 'मेन्यू',
@@ -621,7 +783,7 @@ const hi: UI = {
     services: {
       title: 'हमारी सेवाएँ',
       description:
-        'कृषि भूमि और व्यावसायिक दुकानों के लिए संपत्ति की तलाश, टाइटल सत्यापन, मोल-भाव, दस्तावेज़ीकरण और रजिस्ट्री में सहायता।',
+        'कृषि भूमि और व्यावसायिक दुकानों के लिए संपत्ति की तलाश, टाइटल सत्यापन, मोल-भाव, दस्तावेज़ीकरण और रजिस्ट्री में सहायता, साथ ही इंजीनियरिंग क्षमता बढ़ाने वाली कंपनियों के लिए आईटी स्टाफ संवर्धन।',
     },
     agriculturalLand: {
       title: 'कृषि भूमि की खरीद व बिक्री',
@@ -632,6 +794,11 @@ const hi: UI = {
       title: 'व्यावसायिक दुकानें एवं संपत्ति',
       description:
         'व्यावसायिक दुकानें, शोरूम और रिटेल यूनिट खरीदें, बेचें या किराये पर लें। स्थान का आकलन, किराया प्रतिफल विश्लेषण, टाइटल जाँच, मोल-भाव और दस्तावेज़ीकरण।',
+    },
+    itStaffing: {
+      title: 'आईटी स्टाफ संवर्धन — दक्ष डेवलपर्स प्राप्त करें',
+      description:
+        'लचीले स्टाफ संवर्धन, समर्पित टीम या प्रोजेक्ट-आधारित सहभागिता पर सत्यापित डेवलपर्स, क्यूए इंजीनियर और डेवऑप्स विशेषज्ञों के साथ अपनी इंजीनियरिंग टीम का विस्तार करें।',
     },
     about: {
       title: 'हमारे बारे में',
@@ -684,9 +851,9 @@ const hi: UI = {
     },
 
     servicesEyebrow: 'हम क्या करते हैं',
-    servicesTitle: 'दो काम, पूरी ज़िम्मेदारी के साथ',
+    servicesTitle: 'तीन काम, पूरी ज़िम्मेदारी के साथ',
     servicesSub:
-      'हम कृषि भूमि और व्यावसायिक संपत्ति की खरीद-बिक्री का काम करते हैं। हमारी हर सेवा इन्हीं दो में से किसी एक के अंतर्गत आती है।',
+      'हम कृषि भूमि और व्यावसायिक संपत्ति की खरीद-बिक्री करते हैं, और आईटी स्टाफ संवर्धन के ज़रिए कंपनियों को अपनी इंजीनियरिंग टीम बढ़ाने में मदद करते हैं। हमारी हर सेवा इन्हीं तीन में से किसी एक के अंतर्गत आती है।',
 
     whyEyebrow: 'हमें क्यों चुनें',
     whyTitle: 'पहले कागज़, फिर कीमत, दबाव कभी नहीं',
@@ -762,8 +929,8 @@ const hi: UI = {
 
   services: {
     eyebrow: 'सेवाएँ',
-    title: 'कृषि भूमि और व्यावसायिक दुकानों की खरीद व बिक्री',
-    sub: 'हम खरीदार और विक्रेता, दोनों के लिए काम करते हैं। दोनों में काम एक ही है — सही पक्ष ढूँढना, दस्तावेज़ जाँचना, उचित शर्तें तय करना और सौदा साफ़-सुथरे ढंग से पूरा करना।',
+    title: 'संपत्ति परामर्श और आईटी स्टाफ संवर्धन',
+    sub: 'हम कृषि भूमि और व्यावसायिक दुकानों की खरीद-बिक्री करते हैं, और कंपनियों को सत्यापित आईटी प्रतिभा से अपनी इंजीनियरिंग टीम बढ़ाने में मदद करते हैं। दो बिल्कुल अलग क्षेत्र, देखभाल का स्तर एक जैसा।',
 
     items: [
       {
@@ -798,10 +965,26 @@ const hi: UI = {
           'दस्तावेज़ीकरण, रजिस्ट्री और क़ब्ज़ा',
         ],
       },
+      {
+        key: 'itStaffing',
+        icon: 'code',
+        title: 'आईटी स्टाफ संवर्धन',
+        native: 'IT Staff Augmentation',
+        summary:
+          'सत्यापित डेवलपर्स, क्यूए इंजीनियर और डेवऑप्स विशेषज्ञों से अपनी इंजीनियरिंग टीम बढ़ाएँ — स्टाफ संवर्धन, समर्पित टीम या प्रोजेक्ट-आधारित सहभागिता पर।',
+        points: [
+          'सत्यापित डेवलपर, क्यूए और डेवऑप्स प्रतिभा',
+          'स्टाफ संवर्धन, समर्पित टीम या प्रोजेक्ट-आधारित मॉडल',
+          'तेज़ शॉर्टलिस्ट और साक्षात्कार प्रक्रिया',
+          'फुल-स्टैक, क्लाउड, डेटा और मोबाइल कवरेज',
+          'पारदर्शी, रैंप-अप के अनुकूल शुल्क',
+          'काम पर नियंत्रण आपका; टीम तैयार रखना हमारा',
+        ],
+      },
     ],
 
-    alsoEyebrow: 'दोनों में शामिल',
-    alsoTitle: 'हर काम में यह सब शामिल रहता है',
+    alsoEyebrow: 'हमारी संपत्ति सेवाओं में',
+    alsoTitle: 'हर संपत्ति सेवा में यह सब शामिल रहता है',
     also: [
       {
         icon: 'search',
@@ -954,6 +1137,144 @@ const hi: UI = {
       'स्थान और माँगी गई कीमत बताइए — हम बताएँगे कि हिसाब वास्तव में क्या कहता है।',
   },
 
+  itStaffing: {
+    eyebrow: 'आईटी वर्टिकल',
+    title: 'आईटी स्टाफ संवर्धन',
+    native: 'IT Staff Augmentation',
+    lede: 'जब आपकी इंजीनियरिंग टीम को भर्ती प्रक्रिया से तेज़ रफ़्तार चाहिए, तब हम सत्यापित डेवलपर्स, क्यूए इंजीनियर और डेवऑप्स विशेषज्ञ जोड़ते हैं जो महीनों नहीं, कुछ दिनों में योगदान शुरू कर सकते हैं।',
+
+    forClientsTitle: 'यदि आप भर्ती कर रहे हैं',
+    forClients: [
+      'आपके स्टैक और समय-क्षेत्र से मेल खाते पूर्व-सत्यापित इंजीनियरों की शॉर्टलिस्ट',
+      'लचीली सहभागिता — स्टाफ संवर्धन, समर्पित टीम, या निश्चित-दायरे का प्रोजेक्ट',
+      'टीम में शामिल होने से पहले हर प्रोफ़ाइल का साक्षात्कार और अनुमोदन आप स्वयं करते हैं',
+      'सीधा दैनिक प्रबंधन, ठीक वैसे ही जैसे किसी इन-हाउस नियुक्ति में होता है',
+      'सरल, पारदर्शी मासिक बिलिंग और कोई लंबा लॉक-इन नहीं',
+      'योजना बदलने पर टीम को बढ़ाना या घटाना आसान',
+    ],
+
+    forTalentTitle: 'यदि आप एक टेक प्रोफेशनल हैं',
+    forTalent: [
+      'वास्तविक क्लाइंट प्रोजेक्ट्स पर नियुक्ति, बेंच पर बैठने का समय नहीं',
+      'स्पष्ट अनुबंध और समय पर, निश्चित भुगतान',
+      'आधुनिक स्टैक पर काम — क्लाउड, डेटा, मोबाइल और वेब',
+      'ऑनबोर्डिंग, कोड रिव्यू और पहले स्प्रिंट के दौरान सहयोग',
+      'क्लाइंट की ओर से मिली प्रतिक्रिया ईमानदारी से आप तक पहुँचाई जाती है',
+      'आपकी सहभागिता को प्रभावित करने वाली किसी भी बात के लिए एक संपर्क बिंदु',
+    ],
+
+    modelsEyebrow: 'सहभागिता मॉडल',
+    modelsTitle: 'हमारे साथ काम करने के तीन तरीके',
+    modelsSub:
+      'जितना नियंत्रण और निरंतरता चाहिए, उसी के अनुसार मॉडल चुनें — प्रोजेक्ट आगे बढ़ने पर बदल भी सकते हैं।',
+    models: [
+      {
+        icon: 'users',
+        title: 'स्टाफ संवर्धन',
+        body: 'व्यक्तिगत इंजीनियर आपकी मौजूदा टीम, प्रक्रिया, टूल्स और स्टैंड-अप में शामिल होते हैं। सबसे उपयुक्त जब तकनीकी नेतृत्व पहले से मौजूद हो।',
+      },
+      {
+        icon: 'layers',
+        title: 'समर्पित टीम',
+        body: 'इंजीनियर, क्यूए और एक लीड की एक स्वतंत्र टीम पूर्णकालिक रूप से आपकी योजना पर काम करती है। निरंतर निर्माण के लिए उपयुक्त जिसे अपनी गति चाहिए।',
+      },
+      {
+        icon: 'rocket',
+        title: 'प्रोजेक्ट-आधारित',
+        body: 'निश्चित दायरा, निश्चित समय-सीमा और एक ही जवाबदेह बिंदु के साथ डिलीवरी। तब उपयुक्त जब ज़रूरत स्पष्ट हो और समय-सीमा तय हो।',
+      },
+    ],
+
+    stackEyebrow: 'कवरेज',
+    stackTitle: 'हर स्टैक में प्रतिभा',
+    stackSub: 'यहाँ सूचीबद्ध न हो तो भी पूछिए — सूची इस पृष्ठ से कहीं व्यापक है।',
+    stack: [
+      { category: 'फ्रंटएंड', items: ['React', 'Next.js', 'Vue', 'Angular', 'TypeScript'] },
+      { category: 'बैकएंड', items: ['Node.js', 'Java', 'Python', 'Go', '.NET'] },
+      { category: 'क्लाउड व डेवऑप्स', items: ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes'] },
+      { category: 'डेटा व एआई', items: ['PostgreSQL', 'MongoDB', 'Spark', 'LLM Integrations'] },
+      { category: 'मोबाइल', items: ['React Native', 'Flutter', 'iOS', 'Android'] },
+      { category: 'गुणवत्ता', items: ['मैनुअल क्यूए', 'ऑटोमेशन', 'परफॉर्मेंस टेस्टिंग'] },
+    ],
+
+    processEyebrow: 'प्रक्रिया',
+    processTitle: 'ज़रूरत से लेकर ऑनबोर्ड इंजीनियर तक',
+    processSub: 'ज़रूरत समझते ही सहभागिता तेज़ी से आगे बढ़ती है।',
+    process: [
+      {
+        title: 'ज़रूरत तय करना',
+        body: 'भूमिका, अनुभव-स्तर, स्टैक, समय-क्षेत्र का ओवरलैप और आपकी टीम के अनुकूल सहभागिता मॉडल।',
+      },
+      {
+        title: 'शॉर्टलिस्ट और साक्षात्कार',
+        body: 'आपके सामने आने से पहले साक्षात्कार और तकनीकी मूल्यांकन से गुज़रीं कुछ चुनी हुई प्रोफ़ाइलें।',
+      },
+      {
+        title: 'आपका चयन और अनुमोदन',
+        body: 'टीम में शामिल होने से पहले आप स्वयं साक्षात्कार लेते हैं और मंज़ूरी देते हैं।',
+      },
+      {
+        title: 'ऑनबोर्डिंग और रैंप-अप',
+        body: 'एक्सेस, टूलिंग और एक छोटी रैंप-अप अवधि, पहले स्प्रिंट के अंत में एक चेक-इन के साथ।',
+      },
+    ],
+
+    watchTitle: 'सहभागिता के सफल होने का निर्धारण किससे होता है',
+    watch: [
+      {
+        title: 'कौशल सत्यापन',
+        body: 'शॉर्टलिस्ट में शामिल करने से पहले हर इंजीनियर की तकनीकी जाँच होती है, केवल रिज़्यूमे मिलान नहीं।',
+      },
+      {
+        title: 'समय-क्षेत्र ओवरलैप',
+        body: 'दैनिक स्टैंड-अप और त्वरित निर्णयों के लिए पर्याप्त कार्य-घंटों का ओवरलैप, केवल असिंक्रोनस हैंडऑफ़ नहीं।',
+      },
+      {
+        title: 'आईपी और गोपनीयता',
+        body: 'कोई कोड या क्रेडेंशियल साझा करने से पहले एनडीए और आईपी असाइनमेंट पूरे किए जाते हैं।',
+      },
+      {
+        title: 'संवाद की नियमितता',
+        body: 'पहले दिन से ही तय चेक-इन, रिपोर्टिंग और एस्केलेशन का रास्ता।',
+      },
+      {
+        title: 'रैंप-अप की गति',
+        body: 'ऑनबोर्ड होने से लेकर वास्तव में काम डिलीवर करने तक कितनी जल्दी पहुँचा जाता है।',
+      },
+      {
+        title: 'स्पष्ट एग्ज़िट',
+        body: 'सहभागिता समाप्त होने या भूमिका की ज़रूरत न रहने पर एक स्वच्छ हैंडओवर प्रक्रिया।',
+      },
+    ],
+
+    faq: [
+      {
+        q: 'आईटी स्टाफ संवर्धन क्या है?',
+        a: 'यह व्यक्तिगत इंजीनियरों या एक छोटी टीम को आपकी अपनी टीम के विस्तार के रूप में — आपके निर्देशन, टूल्स और प्रक्रिया के अंतर्गत — काम पर रखना है, बिना सीधी पूर्णकालिक नियुक्ति के बोझ के। आपको इन-हाउस टीम सदस्य जैसा नियंत्रण और अनुबंध सहभागिता जैसी लचीलापन दोनों मिलते हैं।',
+      },
+      {
+        q: 'आप कितनी जल्दी किसी डेवलपर को ऑनबोर्ड कर सकते हैं?',
+        a: 'सामान्य स्टैक के लिए हम आमतौर पर कुछ ही कार्यदिवसों में आपके सामने शॉर्टलिस्ट रख सकते हैं। विशिष्ट कौशल-सेट या सीनियर व लीड भूमिकाओं में अधिक समय लगता है क्योंकि वास्तव में योग्य लोगों का समूह छोटा होता है।',
+      },
+      {
+        q: 'क्या हम स्वयं उम्मीदवारों का साक्षात्कार ले सकते हैं?',
+        a: 'हाँ। हम तकनीकी कौशल और संवाद क्षमता की पूर्व-जाँच करते हैं, लेकिन टीम में शामिल होने से पहले साक्षात्कार और अंतिम निर्णय आप स्वयं लेते हैं।',
+      },
+      {
+        q: 'दैनिक कार्य किसके अधीन होता है?',
+        a: 'स्टाफ संवर्धन में, आपके — वे आपकी प्रक्रिया और टूल्स के भीतर किसी अन्य टीम सदस्य की तरह काम करते हैं। समर्पित टीम या प्रोजेक्ट-आधारित सहभागिता में, हम एक लीड देते हैं जो डिलीवरी संभालता है और आपको रिपोर्ट करता है।',
+      },
+      {
+        q: 'यदि सहभागिता सही नहीं बैठ रही तो क्या होगा?',
+        a: 'हमें जल्दी बताइए। हम किसी गलत मेल को चलने देने के बजाय पहले कुछ हफ़्तों में ही प्रोफ़ाइल बदलना पसंद करेंगे, और अनुबंध इस तरह बनाए जाते हैं कि यह एक सीधा बदलाव हो, दोबारा बातचीत नहीं।',
+      },
+    ],
+
+    ctaTitle: 'हमें भूमिका, स्टैक और समय-सीमा बताइए',
+    ctaBody:
+      'आप क्या बनाना चाहते हैं यह बताइए — हम ईमानदारी से बताएँगे कि एक वास्तविक शॉर्टलिस्ट और समय-सीमा कैसी दिखेगी।',
+  },
+
   about: {
     eyebrow: 'परिचय',
     title: 'सत्यापित दस्तावेज़ों पर टिकी एक संपत्ति सलाहकार फर्म',
@@ -1060,6 +1381,7 @@ const hi: UI = {
     propertyType: 'संपत्ति का प्रकार',
     typeAgricultural: 'कृषि भूमि',
     typeCommercial: 'व्यावसायिक दुकान या संपत्ति',
+    typeIT: 'आईटी स्टाफ संवर्धन आवश्यकता',
     typeOther: 'कुछ और',
     location: 'स्थान या क्षेत्र',
     locationPlaceholder: 'गाँव, शहर या ज़िला',

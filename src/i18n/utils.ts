@@ -78,6 +78,7 @@ export const ROUTES = {
   services: 'services',
   agriculturalLand: 'services/agricultural-land',
   commercialShops: 'services/commercial-shops',
+  itStaffing: 'services/it-staff-augmentation',
   about: 'about',
   contact: 'contact',
 } as const;

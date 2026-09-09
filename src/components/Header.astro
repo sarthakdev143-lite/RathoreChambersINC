@@ -23,7 +23,7 @@ interface Props {
 const { locale, routeKey } = Astro.props;
 const t = ui[locale];
 
-const servicesKeys: RouteKey[] = ['services', 'agriculturalLand', 'commercialShops'];
+const servicesKeys: RouteKey[] = ['services', 'agriculturalLand', 'commercialShops', 'itStaffing'];
 
 const links: { key: RouteKey; label: string; children?: { key: RouteKey; label: string }[] }[] = [
   { key: 'home', label: t.nav.home },
@@ -33,11 +33,18 @@ const links: { key: RouteKey; label: string; children?: { key: RouteKey; label: 
     children: [
       { key: 'agriculturalLand', label: t.nav.agriculturalLand },
       { key: 'commercialShops', label: t.nav.commercialShops },
+      { key: 'itStaffing', label: t.nav.itStaffing },
     ],
   },
   { key: 'about', label: t.nav.about },
   { key: 'contact', label: t.nav.contact },
 ];
+
+const submenuIcon: Record<string, 'field' | 'shop' | 'code'> = {
+  agriculturalLand: 'field',
+  commercialShops: 'shop',
+  itStaffing: 'code',
+};
 
 const isActive = (key: RouteKey) =>
   key === 'services' ? servicesKeys.includes(routeKey) : routeKey === key;
@@ -74,7 +81,7 @@ const isActive = (key: RouteKey) =>
                     {link.children.map((child) => (
                       <li>
                         <a class="submenu__link" href={route(locale, child.key)}>
-                          <Icon name={child.key === 'agriculturalLand' ? 'field' : 'shop'} size={18} />
+                          <Icon name={submenuIcon[child.key] ?? 'shop'} size={18} />
                           <span>{child.label}</span>
                         </a>
                       </li>

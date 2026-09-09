@@ -1,7 +1,7 @@
 # Rathore Chambers INC — Project Status
 
-**Date:** 2026-09-02
-**Business:** Rathore Chambers INC — Purchase & Sale of Agricultural Land (Krishi Bhumi) and Commercial Shops. Assists clients in identifying suitable properties, negotiating deals, and completing transactions smoothly.
+**Date:** 2026-09-09
+**Business:** Rathore Chambers INC — Purchase & Sale of Agricultural Land (Krishi Bhumi) and Commercial Shops, plus a second vertical: IT Staff Augmentation (vetted developers/QA/DevOps on staff-augmentation, dedicated-team or project-based engagements). Assists clients in identifying suitable properties, negotiating deals, and completing transactions smoothly; assists companies in extending their engineering teams.
 **Repo path:** `D:\Sarthak\Coding\Work\KWTC\RathoreChambersINC`
 **Git:** branch `main`, remote `origin` → `https://github.com/sarthakdev143-lite/RathoreChambersINC` (**private**). `dist/`, `node_modules/`, `.astro/`, `.vercel/` ignored.
 **Live:** https://rathore-chambers-inc.vercel.app — Vercel project `kwtc/rathore-chambers-inc`, GitHub repo connected, so **every push to `main` auto-deploys**.
@@ -66,7 +66,7 @@ src/
   styles/global.css       # Design tokens, reset, layout, buttons, cards, motifs, reveal
   layouts/BaseLayout.astro # <head> SEO: title, canonical, hreflang, OG, twitter, JSON-LD graph, Font preloads, Header/Footer/Fab/reveal script
   components/
-    Icon.astro            # Inline 24x24 SVG set (29 names, stroke vs filled)
+    Icon.astro            # Inline 24x24 SVG set (37 names, stroke vs filled)
     Logo.astro            # 40x40 surveyed-plot mark (gradient vs mono)
     Header.astro          # Fixed header, transparent→solid on scroll, nav dropdown, lang toggle, mobile menu
     Footer.astro          # Dark, grid-lines, brand + 3 nav cols + disclaimer
@@ -85,6 +85,7 @@ src/
     [...lang]/services/index.astro          # Services hub
     [...lang]/services/agricultural-land.astro
     [...lang]/services/commercial-shops.astro
+    [...lang]/services/it-staff-augmentation.astro  # IT vertical: terminal-mockup hero, engagement models, tech-stack badges, process, watch, own FAQ
     [...lang]/about.astro
     [...lang]/contact.astro
     404.astro                                # Bilingual (both languages), noindex
@@ -132,17 +133,19 @@ dist/  # built output (13 pages, sitemap-index.xml + sitemap-0.xml)
 ## 6. Build Status
 
 - `npx astro check` → **0 errors, 0 warnings, 0 hints** (30 files). Previous 6 `ts(2698)` spread errors fixed by ternary `...cond ? {k:v} : {}` pattern (empty `''` from `as const` can't be spread with `&&`).
-- `npx astro build` → **13 page(s) built** in ~2.5s, no warnings. Routes confirmed in `dist/`:
+- `npx astro build` → **15 page(s) built** in ~5.6s, no warnings (added the IT staff augmentation page, EN+HI). Routes confirmed in `dist/`:
   ```
   /index.html, /hi/index.html,
   /services/index.html, /hi/services/index.html,
   /services/agricultural-land/index.html, /hi/services/agricultural-land/index.html,
   /services/commercial-shops/index.html, /hi/services/commercial-shops/index.html,
+  /services/it-staff-augmentation/index.html, /hi/services/it-staff-augmentation/index.html,
   /about/index.html, /hi/about/index.html,
   /contact/index.html, /hi/contact/index.html,
   /404.html, /robots.txt
-  sitemap-index.xml, sitemap-0.xml (12 locs)
+  sitemap-index.xml, sitemap-0.xml (14 locs)
   ```
+- **Re-verified 2026-09-09** after adding the IT staff augmentation vertical: `npx astro check` → 0 errors/0 warnings/0 hints (31 files); `npx astro build` → 15 pages in ~5.6s. Verified in-browser (Chrome, both `en` and `hi`) — hero terminal mockup, engagement-model cards, tech-stack badge grid, process steps, "what determines success" grid, page-specific FAQ, and the enquiry form's pre-selected "IT staff augmentation requirement" option all render correctly; nav submenu and footer both list all three services; the home page's third service card wraps correctly in the 2-col grid.
 - Verified: title/canonical/hreflang on agri-land page, JSON-LD parses with 6 graph nodes, HI `<html lang="hi-IN">` + `og:locale hi_IN`, sitemap alternates, `robots.txt` correct, `og.png` renders (logo, headline, Devanagari, pills).
 - `dist/` is gitignored (build artefact, regenerate with `npm run build`). The five generated `public/` assets **are** committed, so a fresh clone does not need network access to `assets:brand`.
 - **Re-verified 2026-09-02:** `npm run build` → 0 errors / 0 warnings / 0 hints (30 files), 13 pages in 2.27s. Payload audit: **0 `.js` files emitted** and no `<script src>` in any page (the 4 scripts on the home page are all inline — header scroll state, mobile menu, reveal observer, FAB), 4 subsetted `.woff2` in `dist/_astro/fonts/`, 656 KB total.
@@ -214,6 +217,7 @@ The build phase is finished — there is no pending code task. If you are pickin
 - **Favicon ICO:** manually wrapped PNG in ICO container (`pngToIco()`), since `sharp` cannot write `.ico`.
 - **Stats strip hidden when `STATS` empty** — intentional; don't invent numbers.
 - **⚠️ Scoped styles cannot reach into `Icon.astro` / `Logo.astro`.** Astro appends its `data-astro-cid-*` attribute to *every* compound selector in a scoped `<style>`, bare element selectors included. Neither `Icon.astro` nor `Logo.astro` has a `<style>` block, so their rendered elements carry no cid and any parent rule targeting them — `.foo svg`, or a class handed over as `<Icon class="bar" />` — compiles to `svg[cid]` / `.bar[cid]` and silently never matches. 17 selectors were dead this way. Reach them with `:global()` nested under a scope-carrying ancestor, e.g. `.burger :global(.burger__close)`, and **verify against the compiled CSS in `dist/_astro/*.css`**, not the source.
+- **Services are data-driven from `t.services.items`.** The home page's service-card grid, the `/services` hub's offer list, and `organizationSchema()`'s `hasOfferCatalog` all map over this one array — adding a new route to `ROUTES`/`RouteKey`, a nav/footer entry, and an item to `services.items` (both `en` and `hi`) is enough to make it show up everywhere; no per-page wiring needed beyond the item's own detail page. When a 3rd item was added for IT staff augmentation, `services.title/sub` and the home `servicesTitle/sub` copy ("two things" / "one of those two") also had to be reworded — check any hardcoded count language when changing the number of items.
 - **⚠️ The header must have a dark section behind it.** `.site-header` is `position: fixed` and transparent until `.is-scrolled`, drawing cream text. `<main>` therefore must NOT be offset — `main > section:first-child { padding-top: var(--header-h) }` in `global.css` lets the dark hero flow up behind it instead. Offsetting `<main>` puts cream text on the cream page background and makes the wordmark, nav and language toggle invisible until the first scroll. Any new top-level page must open with a full-bleed `surface-dark` hero.
 
 ---

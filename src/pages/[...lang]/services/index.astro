@@ -30,7 +30,12 @@ const schema = [
       name: item.title,
       description: item.summary,
       url: absRoute(locale, item.key as RouteKey),
-      serviceType: item.key === 'agriculturalLand' ? 'Agricultural land brokerage' : 'Commercial property brokerage',
+      serviceType:
+        item.key === 'agriculturalLand'
+          ? 'Agricultural land brokerage'
+          : item.key === 'commercialShops'
+            ? 'Commercial property brokerage'
+            : 'IT staff augmentation',
     }),
   ),
 ];
