@@ -4,7 +4,7 @@ import EnquiryForm from '../../components/EnquiryForm.astro';
 import Icon from '../../components/Icon.astro';
 import PageHero from '../../components/PageHero.astro';
 
-import { CONTACT, addressOneLine, hasAddress, whatsappLink } from '../../config/site';
+import { CONTACT, addressOneLine, hasAddress, hasPhone, whatsappLink } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localePaths, route, type Locale } from '../../i18n/utils';
 import { ORG_ID, absRoute, breadcrumbSchema } from '../../lib/seo';
@@ -24,14 +24,18 @@ const channels = [
     external: true,
     accent: 'wa',
   },
-  {
-    icon: 'phone' as const,
-    card: page.phoneCard,
-    href: `tel:${CONTACT.phone.e164}`,
-    value: CONTACT.phone.display,
-    external: false,
-    accent: '',
-  },
+  ...(hasPhone
+    ? [
+        {
+          icon: 'phone' as const,
+          card: page.phoneCard,
+          href: `tel:${CONTACT.phone.e164}`,
+          value: CONTACT.phone.display,
+          external: false,
+          accent: '',
+        },
+      ]
+    : []),
   {
     icon: 'mail' as const,
     card: page.emailCard,
@@ -191,7 +195,7 @@ const schema = [
 
   @media (min-width: 720px) {
     .channels {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
   }
 

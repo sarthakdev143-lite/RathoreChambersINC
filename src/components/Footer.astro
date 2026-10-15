@@ -2,7 +2,7 @@
 import Icon, { type IconName } from './Icon.astro';
 import Logo from './Logo.astro';
 
-import { SITE, CONTACT, addressOneLine, hasAddress, socialLinks } from '../config/site';
+import { SITE, CONTACT, addressOneLine, hasAddress, hasPhone, socialLinks } from '../config/site';
 import { ui } from '../i18n/ui';
 import { route, type Locale, type RouteKey } from '../i18n/utils';
 
@@ -17,9 +17,9 @@ const year = new Date().getFullYear();
 
 const serviceLinks: { key: RouteKey; label: string }[] = [
   { key: 'services', label: t.nav.services },
+  { key: 'itStaffing', label: t.nav.itStaffing },
   { key: 'agriculturalLand', label: t.nav.agriculturalLand },
   { key: 'commercialShops', label: t.nav.commercialShops },
-  { key: 'itStaffing', label: t.nav.itStaffing },
 ];
 
 const companyLinks: { key: RouteKey; label: string }[] = [
@@ -106,10 +106,12 @@ const socialLabels: Record<string, string> = {
       <div class="footer__col">
         <h2 class="footer__heading">{t.footer.contactTitle}</h2>
         <ul class="footer__contact">
-          <li>
-            <Icon name="phone" size={16} />
-            <a href={`tel:${CONTACT.phone.e164}`}>{CONTACT.phone.display}</a>
-          </li>
+          {hasPhone && (
+            <li>
+              <Icon name="phone" size={16} />
+              <a href={`tel:${CONTACT.phone.e164}`}>{CONTACT.phone.display}</a>
+            </li>
+          )}
           <li>
             <Icon name="mail" size={16} />
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>

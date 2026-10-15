@@ -61,7 +61,9 @@ const schema = [
     <div class="container">
       <div class="offers">
         {
-          t.services.items.map((item, index) => (
+          [...t.services.items]
+            .sort((a, b) => ['itStaffing', 'agriculturalLand', 'commercialShops'].indexOf(a.key) - ['itStaffing', 'agriculturalLand', 'commercialShops'].indexOf(b.key))
+            .map((item, index) => (
             <article class="offer reveal" style={`--reveal-delay:${index * 80}ms`}>
               <div class="offer__aside">
                 <span class="card-icon offer__icon">

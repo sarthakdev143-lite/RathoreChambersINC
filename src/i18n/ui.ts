@@ -14,7 +14,7 @@
 const en = {
   brand: {
     name: 'Rathore Chambers INC',
-    tagline: 'Agricultural land & commercial property',
+    tagline: 'IT staff augmentation & engineering delivery',
   },
 
   nav: {
@@ -50,9 +50,9 @@ const en = {
 
   meta: {
     home: {
-      title: 'Agricultural Land & Commercial Shops — Buying and Selling',
+      title: 'IT Staff Augmentation — Vetted Engineers for Growing Teams',
       description:
-        'Rathore Chambers INC helps buyers and sellers of agricultural land (krishi bhumi) and commercial shops find the right property, verify the title, negotiate fairly and complete registration.',
+        'Rathore Chambers INC helps companies extend their engineering teams with vetted developers, QA engineers and DevOps specialists, alongside advisory on agricultural land and commercial property transactions.',
     },
     services: {
       title: 'Our Services',
@@ -75,9 +75,9 @@ const en = {
         'Extend your engineering team with vetted developers, QA engineers and DevOps specialists on flexible staff augmentation, dedicated team or project-based engagements.',
     },
     about: {
-      title: 'About Us',
+      title: 'About Our Engineering Practice',
       description:
-        'Rathore Chambers INC is a property advisory practice dealing in agricultural land and commercial shops, built on verified paperwork and straight advice.',
+        'Rathore Chambers INC provides vetted engineering talent for companies that need to scale, built on verified skill checks and straight advice.',
     },
     contact: {
       title: 'Contact Us',
@@ -91,30 +91,30 @@ const en = {
   },
 
   home: {
-    eyebrow: 'Agricultural land · Commercial property',
-    h1Lead: 'Land and shops,',
-    h1Accent: 'handled end to end.',
-    sub: 'We help buyers and sellers identify the right agricultural land and commercial shops, check the paperwork before money moves, negotiate on fair terms, and see the transaction through to registration.',
+    eyebrow: 'Engineering teams · Delivery partners',
+    h1Lead: 'Build faster,',
+    h1Accent: 'with the right engineers.',
+    sub: 'We provide vetted developers, QA engineers and DevOps specialists for staff augmentation, dedicated teams and fixed-scope projects — ready to contribute in days, not months.',
     primaryCta: 'Start a conversation',
     secondaryCta: 'See what we do',
 
     trust: [
-      'Title checked before you commit',
-      'Straight talk on price',
-      'Documentation handled',
+      'Vetted engineers before onboarding',
+      'Clear, agreed commercial terms',
+      'NDAs and IP in place before work starts',
     ],
 
     panel: {
-      label: 'Pre-purchase check',
-      title: 'Due diligence',
+      label: 'Engagement readiness',
+      title: 'Delivery readiness',
       rows: [
-        { name: 'Title chain', status: 'Verified' },
-        { name: 'Encumbrances', status: 'Clear' },
-        { name: 'Mutation', status: 'Updated' },
-        { name: 'Land use', status: 'Confirmed' },
-        { name: 'Access & measurement', status: 'Matched' },
+        { name: 'Skill validation', status: 'Verified' },
+        { name: 'Timezone overlap', status: 'Clear' },
+        { name: 'NDA & IP', status: 'Updated' },
+        { name: 'Ramp-up plan', status: 'Confirmed' },
+        { name: 'Communication cadence', status: 'Matched' },
       ],
-      footnote: 'Every property we put in front of you clears this first.',
+      footnote: 'Every engineer we place clears this before joining your team.',
     },
 
     statLabels: {
@@ -125,71 +125,67 @@ const en = {
     },
 
     servicesEyebrow: 'What we do',
-    servicesTitle: 'Three things, done properly',
+    servicesTitle: 'Capabilities we deliver',
     servicesSub:
-      'We deal in the purchase and sale of agricultural land and commercial property, and we help companies extend their engineering teams through IT staff augmentation. Everything we offer sits under one of those three.',
+      'Engineering capacity through vetted talent, supported by advisory on agricultural land and commercial property. Everything we offer sits under one of these.',
 
-    whyEyebrow: 'Why work with us',
-    whyTitle: 'Paperwork first, price second, pressure never',
+    whyEyebrow: 'Why teams work with us',
+    whyTitle: 'Delivery speed without delivery risk',
     whySub:
-      'A property transaction goes wrong in the records long before it goes wrong in the money. We work in that order.',
+      'A good hire is not just the fastest profile or the cheapest quote. We work in the order that protects your roadmap.',
     why: [
       {
         icon: 'shield',
-        title: 'Title checked before you commit',
-        body: 'We trace the ownership chain through the revenue records and look for mortgages, disputes, tenancy claims and acquisition notices before you part with a rupee.',
+        title: 'Engineers verified before you see them',
+        body: 'Technical screening before shortlisting, not resume matching alone.',
       },
       {
         icon: 'scales',
-        title: 'Honest view of the price',
-        body: 'You get comparable rates for the area and an opinion on whether the asking price is reasonable — including when our opinion is that you should walk away.',
+        title: 'Honest view of cost and timeline',
+        body: 'You hear what a role will realistically cost and how long it will take — including when you should change the spec.',
       },
       {
         icon: 'network',
-        title: 'Real local network',
-        body: 'Sellers who are genuinely willing to sell and buyers who are genuinely able to buy. We would rather show you four real options than forty listings.',
+        title: 'Talent matched to your stack',
+        body: 'Profiles matched to your stack, seniority and timezone, not whoever is on the bench.',
       },
       {
         icon: 'handshake',
-        title: 'Negotiation on your behalf',
-        body: 'We carry the offers, hold the line on the terms that matter to you, and keep the conversation professional so the deal does not collapse over ego.',
+        title: 'Offers and contracts handled',
+        body: 'We manage offers, notice periods and contracts so your engineering managers stay focused on delivery.',
       },
       {
         icon: 'document',
-        title: 'Documentation and registry',
-        body: 'Agreement to sale, stamp duty, registration, mutation and handover — we stay on the file until your name is on the record, not just until the deal is signed.',
+        title: 'IP, NDA and onboarding',
+        body: 'Agreements, confidentiality and access setup so work can start safely and quickly.',
       },
       {
         icon: 'user',
         title: 'One point of contact',
-        body: 'The same person who took your first call is the person who walks you through registration. Nothing gets lost in a handover.',
+        body: 'The person who scoped your requirement is the person you escalate to later.',
       },
     ],
 
-    processEyebrow: 'How it works',
-    processTitle: 'A clear path from enquiry to registry',
+    processEyebrow: 'How engagements move',
+    processTitle: 'From requirement to onboarded engineer',
     processSub:
-      'You will always know which step you are on and what happens next.',
+      'A typical engagement moves fast once we understand what you need.',
     process: [
       {
-        title: 'Understand the requirement',
-        body: 'What you want to buy or sell, the budget or the price you expect, the area, and the timeline you are working to.',
+        title: 'Scope the requirement',
+        body: 'Role, seniority, stack, timezone overlap and the engagement model that fits your team.',
       },
       {
-        title: 'Shortlist and visit',
-        body: 'We put together a small set of options that actually fit, and take you to see them. Sellers get a shortlist of genuine buyers instead.',
+        title: 'Shortlist and interview',
+        body: 'A small set of pre-screened profiles, interviewed and technically assessed before you see them.',
       },
       {
-        title: 'Check the records',
-        body: 'Title chain, record of rights, mutation status, encumbrances, disputes and any notification affecting the land. Findings in writing.',
+        title: 'You select and approve',
+        body: 'You run your own interview round and sign off before anyone joins your team.',
       },
       {
-        title: 'Negotiate and agree',
-        body: 'Price, payment schedule, possession date and conditions — settled and put into a written agreement to sale.',
-      },
-      {
-        title: 'Register and hand over',
-        body: 'Stamp duty, execution of the sale deed, registration, mutation into your name, and physical handover.',
+        title: 'Onboard and ramp up',
+        body: 'Access, tooling and a short ramp-up window, with a check-in at the end of the first sprint.',
       },
     ],
 
@@ -203,8 +199,8 @@ const en = {
 
   services: {
     eyebrow: 'Services',
-    title: 'Property advisory and IT staff augmentation',
-    sub: 'We deal in the purchase and sale of agricultural land and commercial shops, and we help companies extend their engineering teams with vetted IT talent. Two very different domains, the same standard of care.',
+    title: 'IT staff augmentation and property advisory',
+    sub: 'We help companies scale engineering capacity with vetted talent, and advise on agricultural land and commercial property transactions.',
 
     items: [
       {
@@ -552,7 +548,7 @@ const en = {
   about: {
     eyebrow: 'About',
     title: 'A property practice built on verified paperwork',
-    lede: 'Rathore Chambers INC deals in the purchase and sale of agricultural land and commercial property. We help clients identify suitable properties, negotiate deals, and complete transactions smoothly.',
+    lede: 'Rathore Chambers INC helps companies extend their engineering teams with vetted developers, QA engineers and DevOps specialists, while advising on property transactions.',
 
     bodyTitle: 'How we think about this work',
     body: [
@@ -718,7 +714,7 @@ const en = {
 
   footer: {
     blurb:
-      'Purchase and sale of agricultural land and commercial shops. We help clients identify suitable properties, negotiate deals and complete transactions smoothly.',
+      'Vetted engineering capacity for product teams, plus advisory on agricultural land and commercial property transactions.',
     servicesTitle: 'Services',
     companyTitle: 'Company',
     contactTitle: 'Contact',
@@ -740,7 +736,7 @@ export type UI = typeof en;
 const hi: UI = {
   brand: {
     name: 'Rathore Chambers INC',
-    tagline: 'कृषि भूमि एवं व्यावसायिक संपत्ति',
+    tagline: 'आईटी स्टाफ संवर्धन एवं इंजीनियरिंग डिलीवरी',
   },
 
   nav: {
@@ -776,9 +772,9 @@ const hi: UI = {
 
   meta: {
     home: {
-      title: 'कृषि भूमि एवं व्यावसायिक दुकानें — खरीद और बिक्री',
+      title: 'आईटी स्टाफ संवर्धन — बढ़ती टीमों के लिए सत्यापित इंजीनियर',
       description:
-        'Rathore Chambers INC कृषि भूमि और व्यावसायिक दुकानों के खरीदारों व विक्रेताओं की सहायता करता है — उपयुक्त संपत्ति चुनना, टाइटल की जाँच, उचित मोल-भाव और रजिस्ट्री तक पूरा काम।',
+        'Rathore Chambers INC कंपनियों को सत्यापित डेवलपर्स, क्यूए इंजीनियर और डेवऑप्स विशेषज्ञों के साथ अपनी इंजीनियरिंग टीम बढ़ाने में मदद करता है, साथ ही कृषि भूमि और व्यावसायिक संपत्ति लेन-देन में सलाह देता है।',
     },
     services: {
       title: 'हमारी सेवाएँ',
@@ -803,7 +799,7 @@ const hi: UI = {
     about: {
       title: 'हमारे बारे में',
       description:
-        'Rathore Chambers INC कृषि भूमि और व्यावसायिक दुकानों से जुड़ी एक संपत्ति सलाहकार फर्म है, जिसका आधार सत्यापित दस्तावेज़ और स्पष्ट सलाह है।',
+        'Rathore Chambers INC बढ़ती कंपनियों के लिए सत्यापित इंजीनियरिंग प्रतिभा उपलब्ध कराता है — सत्यापित कौशल जाँच और स्पष्ट सलाह के आधार पर।',
     },
     contact: {
       title: 'संपर्क करें',
@@ -817,30 +813,30 @@ const hi: UI = {
   },
 
   home: {
-    eyebrow: 'कृषि भूमि · व्यावसायिक संपत्ति',
-    h1Lead: 'ज़मीन और दुकान,',
-    h1Accent: 'शुरू से अंत तक।',
-    sub: 'हम खरीदारों और विक्रेताओं को सही कृषि भूमि और व्यावसायिक दुकान चुनने, पैसा देने से पहले दस्तावेज़ों की जाँच करने, उचित शर्तों पर मोल-भाव करने और रजिस्ट्री तक सौदा पूरा कराने में मदद करते हैं।',
+    eyebrow: 'इंजीनियरिंग टीमें · डिलीवरी पार्टनर',
+    h1Lead: 'तेज़ बनाएँ,',
+    h1Accent: 'सही इंजीनियरों के साथ।',
+    sub: 'हम स्टाफ संवर्धन, समर्पित टीम और निश्चित-स्कोप प्रोजेक्ट के लिए सत्यापित डेवलपर्स, क्यूए इंजीनियर और डेवऑप्स विशेषज्ञ उपलब्ध कराते हैं — महीनों नहीं, दिनों में योगदान करने तैयार।',
     primaryCta: 'बातचीत शुरू करें',
     secondaryCta: 'हम क्या करते हैं',
 
     trust: [
-      'पैसा देने से पहले टाइटल की जाँच',
-      'कीमत पर साफ़ बात',
-      'दस्तावेज़ी काम हमारा',
+      'जॉइनिंग से पहले इंजीनियरों की जाँच',
+      'साफ़ और तय व्यावसायिक शर्तें',
+      'काम शुरू होने से पहले एनडीए और आईपी',
     ],
 
     panel: {
-      label: 'खरीद से पहले जाँच',
-      title: 'सम्यक जाँच',
+      label: 'सहभागिता तैयारी',
+      title: 'डिलीवरी तैयारी',
       rows: [
-        { name: 'मालिकाना शृंखला', status: 'सत्यापित' },
-        { name: 'बंधक व भार', status: 'मुक्त' },
-        { name: 'नामांतरण', status: 'अद्यतन' },
-        { name: 'भू-उपयोग', status: 'पुष्ट' },
-        { name: 'रास्ता व पैमाइश', status: 'मेल खाता' },
+        { name: 'कौशल सत्यापन', status: 'सत्यापित' },
+        { name: 'समय-क्षेत्र अधिव्यापन', status: 'पर्याप्त' },
+        { name: 'एनडीए और आईपी', status: 'निपटा' },
+        { name: 'रैम्प-अप योजना', status: 'तैयार' },
+        { name: 'संवाद ताल', status: 'मेल खाता' },
       ],
-      footnote: 'आपके सामने रखी जाने वाली हर संपत्ति पहले यह जाँच पास करती है।',
+      footnote: 'हम जिन इंजीनियरों की जगह दिलाते हैं, वे जॉइनिंग से पहले यह छानबीन पास करते हैं।',
     },
 
     statLabels: {
@@ -851,71 +847,67 @@ const hi: UI = {
     },
 
     servicesEyebrow: 'हम क्या करते हैं',
-    servicesTitle: 'तीन काम, पूरी ज़िम्मेदारी के साथ',
+    servicesTitle: 'हम क्या डिलीवर करते हैं',
     servicesSub:
-      'हम कृषि भूमि और व्यावसायिक संपत्ति की खरीद-बिक्री करते हैं, और आईटी स्टाफ संवर्धन के ज़रिए कंपनियों को अपनी इंजीनियरिंग टीम बढ़ाने में मदद करते हैं। हमारी हर सेवा इन्हीं तीन में से किसी एक के अंतर्गत आती है।',
+      'सत्यापित प्रतिभा के through engineering capacity, supported by advisory on agricultural land and commercial property. हमारी हर सेवा इन्हीं में से किसी एक के अंतर्गत आती है।',
 
-    whyEyebrow: 'हमें क्यों चुनें',
-    whyTitle: 'पहले कागज़, फिर कीमत, दबाव कभी नहीं',
+    whyEyebrow: 'टीमें हमें क्यों चुनती हैं',
+    whyTitle: 'डिलीवरी तेज़, जोखिम नियंत्रित',
     whySub:
-      'कोई भी संपत्ति सौदा पैसे में बिगड़ने से बहुत पहले रिकॉर्ड में बिगड़ चुका होता है। हम उसी क्रम में काम करते हैं।',
+      'सही हायरिंग सिर्फ़ सबसे तेज़ प्रोफ़ाइल या सस्ता कोट हासिल करना नहीं है। हम ऐसे क्रम में काम करते हैं जो आपके रोडमैप की रक्षा करे।',
     why: [
       {
         icon: 'shield',
-        title: 'पैसा देने से पहले टाइटल की जाँच',
-        body: 'राजस्व रिकॉर्ड में मालिकाना हक़ की पूरी शृंखला देखते हैं और बंधक, विवाद, काश्तकारी दावे तथा अधिग्रहण सूचनाओं की जाँच करते हैं — एक रुपया देने से पहले।',
+        title: 'आपके देखने से पहले इंजीनियरों की जाँच',
+        body: 'शॉर्टलिस्टिंग से पहले तकनीकी स्क्रीनिंग, न कि सिर्फ़ रिज़्यूमे मिलान।',
       },
       {
         icon: 'scales',
-        title: 'कीमत पर ईमानदार राय',
-        body: 'आपको क्षेत्र की तुलनात्मक दरें और यह स्पष्ट राय मिलती है कि माँगी गई कीमत उचित है या नहीं — तब भी जब हमारी राय यह हो कि आपको यह सौदा छोड़ देना चाहिए।',
+        title: 'लागत और समय-सीमा पर ईमानदार राय',
+        body: 'आप जानेंगे कि भूमिका कितनी लागत आएगी और कितना समय लगेगा — जब आपको विनिर्देश बदलना हो तब भी।',
       },
       {
         icon: 'network',
-        title: 'वास्तविक स्थानीय नेटवर्क',
-        body: 'ऐसे विक्रेता जो सचमुच बेचना चाहते हैं और ऐसे खरीदार जो सचमुच खरीद सकते हैं। चालीस लिस्टिंग दिखाने से बेहतर है चार असली विकल्प दिखाना।',
+        title: 'आपके स्टैक में फिट प्रतिभा',
+        body: 'प्रोफ़ाइल आपके स्टैक, वरिष्ठता और टाइम ज़ोन से मैच, न कि जो बेंच पर बैठा हो।',
       },
       {
         icon: 'handshake',
-        title: 'आपकी ओर से मोल-भाव',
-        body: 'हम प्रस्ताव आगे-पीछे पहुँचाते हैं, आपकी ज़रूरी शर्तों पर डटे रहते हैं, और बातचीत को इतना संयत रखते हैं कि सौदा अहं के कारण न टूटे।',
+        title: 'ऑफ़र और अनुबंध की देखभाल',
+        body: 'हम ऑफ़र, नोटिस पीरियड और अनुबंध संभालते हैं ताकि आपके इंजीनियरिंग मैनेजर डिलीवरी पर फोकस कर सकें।',
       },
       {
         icon: 'document',
-        title: 'दस्तावेज़ीकरण और रजिस्ट्री',
-        body: 'बयाना अनुबंध, स्टाम्प ड्यूटी, रजिस्ट्री, नामांतरण और क़ब्ज़ा — हम फ़ाइल तब तक नहीं छोड़ते जब तक रिकॉर्ड में आपका नाम दर्ज न हो जाए।',
+        title: 'आईपी, एनडीए और ऑनबोर्डिंग',
+        body: 'समझौते, गोपनीयता और एक्सेस सेटअप ताकि काम जल्दी और सुरक्षित शुरू हो।',
       },
       {
         icon: 'user',
         title: 'एक ही संपर्क व्यक्ति',
-        body: 'जिस व्यक्ति ने आपका पहला फ़ोन उठाया, वही रजिस्ट्री तक आपके साथ रहता है। बीच में कुछ भी खोता नहीं।',
+        body: 'जिस व्यक्ति ने आपकी आवश्यकता समझी, बाद में आप उसी से बात करें।',
       },
     ],
 
     processEyebrow: 'प्रक्रिया',
-    processTitle: 'पूछताछ से रजिस्ट्री तक स्पष्ट रास्ता',
+    processTitle: 'आवश्यकता से ऑनबोर्ड इंजीनियर तक',
     processSub:
-      'आपको हमेशा पता रहेगा कि आप किस चरण पर हैं और आगे क्या होने वाला है।',
+      'आवश्यकता समझते ही सहभागिता तेज़ी से आगे बढ़ती है।',
     process: [
       {
-        title: 'आवश्यकता समझना',
-        body: 'आप क्या खरीदना या बेचना चाहते हैं, बजट या अपेक्षित कीमत, क्षेत्र, और आपकी समय-सीमा।',
+        title: 'आवश्यकता का दायरा',
+        body: 'भूमिका, वरिष्ठता, स्टैक, समय-क्षेत्र अधिव्यापन और वह सहभागिता मॉडल जो आपकी टीम में फिट हो।',
       },
       {
-        title: 'विकल्प चुनना और दिखाना',
-        body: 'हम कुछ ऐसे विकल्प तैयार करते हैं जो वाकई उपयुक्त हों, और आपको मौके पर ले जाते हैं। विक्रेताओं को इसके बदले गंभीर खरीदारों की सूची मिलती है।',
+        title: 'विकल्प और इंटरव्यू',
+        body: 'पहले तकनीकी रूप से जाँचे गए प्रोफ़ाइल्स का एक छोटा सेट, जिसे आप देखें उससे पहले इंटरव्यू लिया जाता है।',
       },
       {
-        title: 'रिकॉर्ड की जाँच',
-        body: 'मालिकाना शृंखला, खतौनी, नामांतरण की स्थिति, बंधक, विवाद और भूमि पर लागू कोई भी सरकारी सूचना। निष्कर्ष लिखित रूप में।',
+        title: 'आप चुनें और अनुमोदित करें',
+        body: 'आप अपना इंटरव्यू राउंड चलाते हैं और कोई टीम में शामिल हो उससे पहले अंतिम सहमति देते हैं।',
       },
       {
-        title: 'मोल-भाव और सहमति',
-        body: 'कीमत, भुगतान का क्रम, क़ब्ज़े की तारीख़ और शर्तें — तय करके लिखित बयाना अनुबंध में दर्ज।',
-      },
-      {
-        title: 'रजिस्ट्री और क़ब्ज़ा',
-        body: 'स्टाम्प ड्यूटी, विक्रय-पत्र का निष्पादन, रजिस्ट्री, आपके नाम नामांतरण और वास्तविक क़ब्ज़ा।',
+        title: 'ऑनबोर्ड और रैम्प-अप',
+        body: 'एक्सेस, टूलिंग और छोटा रैम्प-अप विंडो, पहले स्प्रिंट के अंत में चेक-इन।',
       },
     ],
 
@@ -929,8 +921,8 @@ const hi: UI = {
 
   services: {
     eyebrow: 'सेवाएँ',
-    title: 'संपत्ति परामर्श और आईटी स्टाफ संवर्धन',
-    sub: 'हम कृषि भूमि और व्यावसायिक दुकानों की खरीद-बिक्री करते हैं, और कंपनियों को सत्यापित आईटी प्रतिभा से अपनी इंजीनियरिंग टीम बढ़ाने में मदद करते हैं। दो बिल्कुल अलग क्षेत्र, देखभाल का स्तर एक जैसा।',
+    title: 'आईटी स्टाफ संवर्धन और संपत्ति परामर्श',
+    sub: 'हम सत्यापित प्रतिभा के साथ कंपनियों की इंजीनियरिंग क्षमता बढ़ाने में मदद करते हैं, और कृषि भूमि एवं व्यावसायिक संपत्ति लेन-देन में सलाह देते हैं।',
 
     items: [
       {

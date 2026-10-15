@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 
-import { CONTACT, whatsappLink } from '../config/site';
+import { CONTACT, hasPhone, whatsappLink } from '../config/site';
 import { ui } from '../i18n/ui';
 import { route, type Locale } from '../i18n/utils';
 
@@ -38,10 +38,12 @@ const t = ui[locale];
         {t.common.whatsapp}
       </a>
 
-      <a class="btn btn--outline btn--lg" href={`tel:${CONTACT.phone.e164}`}>
-        <Icon name="phone" size={17} />
-        {CONTACT.phone.display}
-      </a>
+      {hasPhone && (
+        <a class="btn btn--outline btn--lg" href={`tel:${CONTACT.phone.e164}`}>
+          <Icon name="phone" size={17} />
+          {CONTACT.phone.display}
+        </a>
+      )}>
 
       <a class="cta__link" href={route(locale, 'contact')}>
         {t.common.getInTouch}

@@ -37,8 +37,8 @@ export const CONTACT = {
    *  - `display` : how it is shown on screen. Format it however you like.
    */
   phone: {
-    e164: '+919000000000',
-    display: '+91 90000 00000',
+    e164: '',
+    display: '',
   },
 
   /**
@@ -109,6 +109,9 @@ export const STATS: { value: string; key: 'years' | 'deals' | 'districts' | 'cli
 export const hasAddress =
   Boolean(CONTACT.address.locality) || Boolean(CONTACT.address.street);
 
+export const hasPhone =
+  Boolean(CONTACT.phone.e164) && Boolean(CONTACT.phone.display);
+
 export const addressOneLine = [
   CONTACT.address.street,
   CONTACT.address.locality,
@@ -123,7 +126,7 @@ export const socialLinks = Object.entries(SOCIAL)
   .map(([network, href]) => ({ network, href }));
 
 export function isPlaceholderPhone(): boolean {
-  return CONTACT.phone.e164 === '+919000000000' || (CONTACT.phone.e164 as string).includes('90000');
+  return !hasPhone || (CONTACT.phone.e164 as string) === '+919000000000' || (CONTACT.phone.e164 as string).includes('90000');
 }
 export function isPlaceholderWhatsapp(): boolean {
   return CONTACT.whatsapp === '919000000000' || (CONTACT.whatsapp as string).includes('90000');
