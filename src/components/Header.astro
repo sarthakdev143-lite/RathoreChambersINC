@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
-import { whatsappLink } from '../config/site';
+import { CONTACT } from '../config/site';
 import { ui } from '../i18n/ui';
 import {
   LOCALES,
@@ -114,14 +114,9 @@ const isActive = (key: RouteKey) =>
         }
       </div>
 
-      <a
-        class="btn btn--primary header-cta"
-        href={whatsappLink()}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Icon name="whatsapp" size={17} />
-        {t.common.whatsapp}
+      <a class="btn btn--primary header-cta" href={`mailto:${CONTACT.email}`}>
+        <Icon name="mail" size={17} />
+        {t.common.emailUs}
       </a>
 
       <button
@@ -169,14 +164,9 @@ const isActive = (key: RouteKey) =>
       }
     </ul>
 
-    <a
-      class="btn btn--wa btn--lg btn--block"
-      href={whatsappLink()}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon name="whatsapp" size={19} />
-      {t.common.whatsapp}
+    <a class="btn btn--primary btn--lg btn--block" href={`mailto:${CONTACT.email}`}>
+      <Icon name="mail" size={19} />
+      {t.common.emailUs}
     </a>
   </nav>
 </div>

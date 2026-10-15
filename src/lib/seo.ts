@@ -1,4 +1,4 @@
-import { SITE, CONTACT, SERVICE_AREAS, socialLinks, hasAddress, hasPhone, isPlaceholderPhone, isPlaceholderEmail } from '../config/site';
+import { SITE, CONTACT, SERVICE_AREAS, socialLinks, hasAddress, isPlaceholderEmail } from '../config/site';
 import { LOCALE_TAGS, LOCALES, localePath, ROUTES, type Locale, type RouteKey } from '../i18n/utils';
 import { ui } from '../i18n/ui';
 
@@ -72,7 +72,6 @@ export function organizationSchema(locale: Locale) {
       contentUrl: abs('/logo.svg'),
       caption: SITE.name,
     },
-    ...(hasPhone && !isPlaceholderPhone() ? { telephone: CONTACT.phone.e164 } : {}),
     ...(isPlaceholderEmail() ? {} : { email: CONTACT.email }),
     knowsLanguage: LOCALES.map((l) => LOCALE_TAGS[l]),
     priceRange: '$$',

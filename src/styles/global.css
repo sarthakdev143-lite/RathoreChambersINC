@@ -408,15 +408,6 @@ main > section:first-child {
   background: color-mix(in srgb, var(--fg) 5%, transparent);
 }
 
-.btn--wa {
-  background: #25d366;
-  color: #052e16;
-}
-
-.btn--wa:hover {
-  background: #1fbe5a;
-}
-
 .btn--lg {
   padding: 1rem 1.75rem;
   font-size: var(--fs-base);

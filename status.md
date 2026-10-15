@@ -17,7 +17,7 @@
 | Tech stack | **Astro** — chosen for prod SEO best practices (zero JS by default, sitemap, i18n, perfect Lighthouse) |
 | Language | **Bilingual toggle** `en` (default, unprefixed `/`) + `hi` (prefixed `/hi/`) |
 | Pages | **Multi-page site** — Home + Services hub + 2 service detail pages + About + Contact |
-| Contact form | **WhatsApp + phone + email links** — form builds a `wa.me` link, no backend |
+| Contact form | **Email only** — the form opens the visitor's mail app with the details pre-filled (`mailto:`), no backend |
 | Contact details | **Placeholders for now** — single source of truth in `src/config/site.ts` |
 | Service area | **Generic / pan-India for now** — `SERVICE_AREAS = []` hides coverage section until filled |
 | Visual style | **Trust & heritage + clearly digital** — deep forest/gold/cream palette executed with dark hero, grid lines, glows, reveal animations, mono labels. User was unsure, this combines both intents. |
@@ -70,15 +70,14 @@ src/
     Logo.astro            # 40x40 surveyed-plot mark (gradient vs mono)
     Header.astro          # Fixed header, transparent→solid on scroll, nav dropdown, lang toggle, mobile menu
     Footer.astro          # Dark, grid-lines, brand + 3 nav cols + disclaimer
-    WhatsAppFab.astro     # Fixed bottom-right, reveals after 400px scroll
     Breadcrumbs.astro
     PageHero.astro        # Dark hero used by all inner pages
-    CTABand.astro         # Dark CTA band (WA + phone + link)
+    CTABand.astro         # Dark CTA band (email + contact link)
     FAQAccordion.astro    # <details>/<summary>, no JS
     FeatureGrid.astro     # Icon card grid
     AudienceSplit.astro   # 2-col buyer/seller checklist
     NumberedGrid.astro    # Numbered watch-list grid
-    EnquiryForm.astro     # WA-powered form (wa.me builder)
+    EnquiryForm.astro     # Mail-powered form (mailto: builder)
     EnquirySection.astro  # Aside (direct links) + EnquiryForm, used by service pages
   pages/
     [...lang]/index.astro                    # Home (hero + stats + services + why + process + faq + cta)
@@ -112,13 +111,11 @@ dist/  # built output (13 pages, sitemap-index.xml + sitemap-0.xml)
 
 ## 5. Content & Placeholders
 
-**All placeholders are in `src/config/site.ts` — TODO comments mark them:**
+**Contact details live in `src/config/site.ts` — the published set is deliberately minimal:**
 
 - `SITE.url` → **now `https://rathore-chambers-inc.vercel.app`** (the live Vercel alias, so deployed pages reference themselves). Replace with the real domain once it points at Vercel, then rebuild + redeploy — it is baked into canonical, `og:url`, hreflang and the sitemap at build time.
 - `SITE.foundingYear` → `''` (optional)
-- `CONTACT.phone.e164` → `+919000000000` / display `+91 90000 00000`
-- `CONTACT.whatsapp` → `919000000000` (digits only, with country code, no `+`)
-- `CONTACT.email` → `contact@rathorechambers.com`
+- `CONTACT.email` → **`hr@rathorechambers.com`** — the only contact address on the site. Phone and WhatsApp were **removed entirely** (2026-10-16, client request): no `wa.me`/`tel:` links, no WhatsApp FAB, no placeholder number anywhere.
 - `CONTACT.address` → all empty (`street`, `locality`, `region`, `postalCode` empty → `hasAddress` false, address hidden, LocalBusiness address omitted from schema until filled — keep identical to Google Business Profile)
 - `CONTACT.mapUrl` → `''` (Google Maps share link, hides button if empty)
 - `CONTACT.hours` → Mon–Sat 09:30–19:00, Sunday by appointment (localized day names on contact page via `Intl.DateTimeFormat`)
@@ -151,6 +148,7 @@ dist/  # built output (13 pages, sitemap-index.xml + sitemap-0.xml)
 - **Re-verified 2026-09-02:** `npm run build` → 0 errors / 0 warnings / 0 hints (30 files), 13 pages in 2.27s. Payload audit: **0 `.js` files emitted** and no `<script src>` in any page (the 4 scripts on the home page are all inline — header scroll state, mobile menu, reveal observer, FAB), 4 subsetted `.woff2` in `dist/_astro/fonts/`, 656 KB total.
 - **⚠️ Superseded 2026-10-16 — the "0 `.js` files, all inline" audit above was the bug, not an optimisation:** the production CSP (`script-src 'self'`) blocks inline scripts, so every inlined page script silently stopped running on the deployed site. See section 9, "Never let Astro inline page scripts".
 - **Re-verified 2026-10-16 (after the blank-page fix):** `npm run build` → 0 errors / 0 warnings / 0 hints, 15 pages. All 15 built HTML files contain **zero inline executable scripts** — 2–3 external same-origin scripts each (4 emitted in `dist/_astro/*.js`, 0.2–0.8 kB), which the CSP allows. `dist/` served behind the exact `vercel.json` CSP in headless Chrome: home + contact render completely, all 22 `.reveal` sections visible after scrolling, header scroll state works, 0 console errors, 0 CSP violations, 0 failed requests.
+- **Re-verified 2026-10-16 (email-only contact, after the WhatsApp/phone removal):** `npm run check` → 0 errors / 0 warnings / 0 hints (30 files); `npm run build` → 15 pages. Audit of `dist/`: `wa.me`, `919000000000`, `contact@rathorechambers.com` and `tel:+` appear **nowhere**; `hr@rathorechambers.com` on every page (header CTA, footer, contact page, JSON-LD); 3 external same-origin JS chunks, still 0 inline module scripts. Served behind the exact (tightened, no `https://wa.me`) `vercel.json` CSP in headless Chrome: home 22/22 reveals visible, contact page shows a single Email channel card, header CTA reads "Email us -> mailto:hr@rathorechambers.com", form carries `data-email="hr@rathorechambers.com"`, 0 console errors, 0 CSP violations, 0 failed requests.
 
 ---
 
@@ -181,7 +179,7 @@ From `TodoWrite` tracker:
 
 | Item | Owner | Notes |
 |---|---|---|
-| Fill real contact details in `src/config/site.ts` | **client** | **Blocks launch.** Until done, every WhatsApp/call link points at placeholder `+919000000000`. |
+| Complete remaining contact details in `src/config/site.ts` | **client** | Email is set (`hr@rathorechambers.com`). Still empty: `CONTACT.address`, `CONTACT.mapUrl`, `SOCIAL` — each hides itself until filled. |
 | Review copy in `src/i18n/ui.ts` | **client** | Especially FAQ answers on fees/timelines and the per-service process steps — written without knowing their actual workflow. |
 | Fill `SERVICE_AREAS` | client | Empty array hides the coverage section; filling it is worth real local-SEO value. |
 | Fill `STATS` (or leave empty) | client | Leaving empty is a legitimate final answer — do not invent numbers. |
@@ -213,7 +211,7 @@ The build phase is finished — there is no pending code task. If you are pickin
 - **No Tailwind** — custom CSS variables in `src/styles/global.css:1` for full control; `surface-dark` flips semantic tokens.
 - **Icons are inline SVG** — `src/components/Icon.astro:1` has no deps; `name` prop is typed.
 - **Spread fix:** `src/lib/seo.ts` must use `...cond ? {k:v} : {}` not `...cond && {k:v}` because `as const` makes `''` a non-object type.
-- **Unused import fix:** `src/pages/[...lang]/index.astro` had `whatsappLink` removed (hint).
+- **⚠️ Contact is email-only — do not re-add phone/WhatsApp without asking.** On 2026-10-16 the client asked to remove all numbers and keep a single address, `hr@rathorechambers.com`. `CONTACT.phone`, `CONTACT.whatsapp`, `whatsappLink()`, `isPlaceholderWhatsapp()`, the `whatsappCard`/`phoneCard` copy, the WhatsApp FAB, every `wa.me`/`tel:` link and the green `btn--wa` style were deleted. The enquiry form now assembles its fields into a `mailto:...?subject=&body=` URL and does `window.location.href = url` (`window.open` on a `mailto:` is often blocked). The CSP in `vercel.json` no longer allows `https://wa.me`.
 - **BaseLayout `noindex` prop** added for 404 to suppress canonical/hreflang and set `robots noindex`.
 - **OG image:** `scripts/generate-brand-assets.mjs` `ogTree()` uses `flex` display explicitly (satori requires it) and `img()` helper for `src` (not style). Previous bug was `src` in style object → "Image source is not provided".
 - **Favicon ICO:** manually wrapped PNG in ICO container (`pngToIco()`), since `sharp` cannot write `.ico`.

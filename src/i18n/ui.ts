@@ -32,7 +32,7 @@ const en = {
   },
 
   common: {
-    whatsapp: 'WhatsApp us',
+    emailUs: 'Email us',
     call: 'Call',
     email: 'Email',
     getInTouch: 'Get in touch',
@@ -82,7 +82,7 @@ const en = {
     contact: {
       title: 'Contact Us',
       description:
-        'Speak to Rathore Chambers INC about buying or selling agricultural land or a commercial shop. Message us on WhatsApp, call, or send an enquiry.',
+        'Speak to Rathore Chambers INC about buying or selling agricultural land or a commercial shop, or about IT staff augmentation. Send us an email or use the enquiry form.',
     },
     notFound: {
       title: 'Page not found',
@@ -602,22 +602,12 @@ const en = {
   contact: {
     eyebrow: 'Contact',
     title: 'Tell us what you are looking for',
-    lede: 'Message us on WhatsApp for the quickest reply, or send the details through the form and we will come back to you.',
+    lede: 'Email us directly, or send the details through the form and we will come back to you.',
 
     channelsTitle: 'Direct lines',
-    whatsappCard: {
-      title: 'WhatsApp',
-      body: 'Fastest way to reach us. Send photos, documents or a location pin.',
-      action: 'Open WhatsApp',
-    },
-    phoneCard: {
-      title: 'Phone',
-      body: 'Call during office hours and you will get a person, not a menu.',
-      action: 'Call now',
-    },
     emailCard: {
       title: 'Email',
-      body: 'Best for sending scanned records and detailed requirements.',
+      body: 'The best way to reach us — for requirements, scanned records, documents or a short introduction.',
       action: 'Send an email',
     },
     officeTitle: 'Office',
@@ -638,7 +628,7 @@ const en = {
 
   form: {
     title: 'Send an enquiry',
-    sub: 'Fill this in and it opens WhatsApp with your details ready to send.',
+    sub: 'Fill this in and it opens your email app with the details ready to send.',
     name: 'Your name',
     namePlaceholder: 'Full name',
     phone: 'Phone number',
@@ -661,20 +651,20 @@ const en = {
     messagePlaceholder:
       'Khasra number, size, what you are looking for, or anything else that helps.',
     optional: 'optional',
-    submit: 'Continue on WhatsApp',
-    submitNote: 'This opens WhatsApp. Nothing is sent until you press send there.',
+    submit: 'Send via email',
+    submitNote: 'This opens your email app. Nothing is sent until you press send there.',
     noscript:
-      'This form needs JavaScript to open WhatsApp. Please use the phone, WhatsApp or email links above instead.',
+      'This form needs JavaScript to open your email app. Please use the email link above instead.',
     required: 'Please fill in this field.',
 
-    waIntro: 'Enquiry from your website',
-    waName: 'Name',
-    waPhone: 'Phone',
-    waIntent: 'Looking to',
-    waType: 'Property type',
-    waLocation: 'Location',
-    waBudget: 'Budget',
-    waMessage: 'Details',
+    intro: 'Enquiry from your website',
+    labelName: 'Name',
+    labelPhone: 'Phone',
+    labelIntent: 'Looking to',
+    labelType: 'Property type',
+    labelLocation: 'Location',
+    labelBudget: 'Budget',
+    labelMessage: 'Details',
   },
 
   faq: [
@@ -754,7 +744,7 @@ const hi: UI = {
   },
 
   common: {
-    whatsapp: 'व्हाट्सएप करें',
+    emailUs: 'ईमेल करें',
     call: 'कॉल करें',
     email: 'ईमेल',
     getInTouch: 'संपर्क करें',
@@ -804,7 +794,7 @@ const hi: UI = {
     contact: {
       title: 'संपर्क करें',
       description:
-        'कृषि भूमि या व्यावसायिक दुकान खरीदने-बेचने के लिए Rathore Chambers INC से बात करें। व्हाट्सएप करें, कॉल करें या पूछताछ भेजें।',
+        'कृषि भूमि या व्यावसायिक दुकान खरीदने-बेचने, या आईटी स्टाफ संवर्धन के बारे में Rathore Chambers INC से बात करें। हमें ईमेल भेजें या पूछताछ फ़ॉर्म भरें।',
     },
     notFound: {
       title: 'पृष्ठ नहीं मिला',
@@ -1324,22 +1314,12 @@ const hi: UI = {
   contact: {
     eyebrow: 'संपर्क',
     title: 'बताइए आप क्या खोज रहे हैं',
-    lede: 'सबसे तेज़ उत्तर के लिए व्हाट्सएप पर संदेश भेजें, या फ़ॉर्म के ज़रिए विवरण भेजें — हम आपसे संपर्क करेंगे।',
+    lede: 'हमें सीधे ईमेल भेजें, या फ़ॉर्म के ज़रिए विवरण भेजें — हम आपसे संपर्क करेंगे।',
 
     channelsTitle: 'सीधा संपर्क',
-    whatsappCard: {
-      title: 'व्हाट्सएप',
-      body: 'हम तक पहुँचने का सबसे तेज़ तरीका। फ़ोटो, दस्तावेज़ या लोकेशन भेजें।',
-      action: 'व्हाट्सएप खोलें',
-    },
-    phoneCard: {
-      title: 'फ़ोन',
-      body: 'दफ़्तर के समय में कॉल कीजिए — आपसे व्यक्ति बात करेगा, कोई मशीन नहीं।',
-      action: 'अभी कॉल करें',
-    },
     emailCard: {
       title: 'ईमेल',
-      body: 'स्कैन किए दस्तावेज़ और विस्तृत आवश्यकताएँ भेजने के लिए सबसे उपयुक्त।',
+      body: 'हम तक पहुँचने का सबसे अच्छा तरीका — आवश्यकताएँ, स्कैन किए दस्तावेज़ या रिकॉर्ड भेजने के लिए।',
       action: 'ईमेल भेजें',
     },
     officeTitle: 'कार्यालय',
@@ -1360,7 +1340,7 @@ const hi: UI = {
 
   form: {
     title: 'पूछताछ भेजें',
-    sub: 'यह भरिए — आपका विवरण भरकर व्हाट्सएप खुल जाएगा।',
+    sub: 'यह भरिए — आपका विवरण भरकर आपका ईमेल ऐप खुल जाएगा।',
     name: 'आपका नाम',
     namePlaceholder: 'पूरा नाम',
     phone: 'फ़ोन नंबर',
@@ -1383,21 +1363,21 @@ const hi: UI = {
     messagePlaceholder:
       'खसरा नंबर, रकबा, आप क्या खोज रहे हैं, या और कोई उपयोगी जानकारी।',
     optional: 'वैकल्पिक',
-    submit: 'व्हाट्सएप पर आगे बढ़ें',
+    submit: 'ईमेल से भेजें',
     submitNote:
-      'इससे व्हाट्सएप खुलेगा। जब तक आप वहाँ भेजें न दबाएँ, कुछ नहीं भेजा जाता।',
+      'इससे आपका ईमेल ऐप खुलेगा। जब तक आप वहाँ भेजें न दबाएँ, कुछ नहीं भेजा जाता।',
     noscript:
-      'व्हाट्सएप खोलने के लिए इस फ़ॉर्म को JavaScript चाहिए। कृपया ऊपर दिए फ़ोन, व्हाट्सएप या ईमेल लिंक का उपयोग करें।',
+      'ईमेल ऐप खोलने के लिए इस फ़ॉर्म को JavaScript चाहिए। कृपया ऊपर दिए ईमेल लिंक का उपयोग करें।',
     required: 'कृपया यह जानकारी भरें।',
 
-    waIntro: 'आपकी वेबसाइट से पूछताछ',
-    waName: 'नाम',
-    waPhone: 'फ़ोन',
-    waIntent: 'उद्देश्य',
-    waType: 'संपत्ति का प्रकार',
-    waLocation: 'स्थान',
-    waBudget: 'बजट',
-    waMessage: 'विवरण',
+    intro: 'आपकी वेबसाइट से पूछताछ',
+    labelName: 'नाम',
+    labelPhone: 'फ़ोन',
+    labelIntent: 'उद्देश्य',
+    labelType: 'संपत्ति का प्रकार',
+    labelLocation: 'स्थान',
+    labelBudget: 'बजट',
+    labelMessage: 'विवरण',
   },
 
   faq: [

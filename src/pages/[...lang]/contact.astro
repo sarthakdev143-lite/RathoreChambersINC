@@ -4,7 +4,7 @@ import EnquiryForm from '../../components/EnquiryForm.astro';
 import Icon from '../../components/Icon.astro';
 import PageHero from '../../components/PageHero.astro';
 
-import { CONTACT, addressOneLine, hasAddress, hasPhone, whatsappLink } from '../../config/site';
+import { CONTACT, addressOneLine, hasAddress } from '../../config/site';
 import { ui } from '../../i18n/ui';
 import { localePaths, route, type Locale } from '../../i18n/utils';
 import { ORG_ID, absRoute, breadcrumbSchema } from '../../lib/seo';
@@ -17,32 +17,11 @@ const page = t.contact;
 
 const channels = [
   {
-    icon: 'whatsapp' as const,
-    card: page.whatsappCard,
-    href: whatsappLink(t.form.waIntro),
-    value: CONTACT.phone.display,
-    external: true,
-    accent: 'wa',
-  },
-  ...(hasPhone
-    ? [
-        {
-          icon: 'phone' as const,
-          card: page.phoneCard,
-          href: `tel:${CONTACT.phone.e164}`,
-          value: CONTACT.phone.display,
-          external: false,
-          accent: '',
-        },
-      ]
-    : []),
-  {
     icon: 'mail' as const,
     card: page.emailCard,
     href: `mailto:${CONTACT.email}`,
     value: CONTACT.email,
     external: false,
-    accent: '',
   },
 ];
 
@@ -106,7 +85,7 @@ const schema = [
                 target={channel.external ? '_blank' : undefined}
                 rel={channel.external ? 'noopener noreferrer' : undefined}
               >
-                <span class={`card-icon ${channel.accent === 'wa' ? 'card-icon--wa' : ''}`}>
+                <span class="card-icon">
                   <Icon name={channel.icon} size={20} />
                 </span>
 
@@ -210,12 +189,6 @@ const schema = [
     height: 100%;
     padding: clamp(1.5rem, 2.5vw, 2rem);
     text-decoration: none;
-  }
-
-  .card-icon--wa {
-    color: #128c4a;
-    background: rgb(37 211 102 / 0.12);
-    border-color: rgb(37 211 102 / 0.3);
   }
 
   .channel__value {

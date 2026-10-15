@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 
-import { CONTACT, isPlaceholderWhatsapp } from '../config/site';
+import { CONTACT } from '../config/site';
 import { ui } from '../i18n/ui';
 import type { Locale } from '../i18n/utils';
 
@@ -13,7 +13,6 @@ interface Props {
 
 const { locale, defaultType } = Astro.props;
 const t = ui[locale];
-const whatsappIsPlaceholder = isPlaceholderWhatsapp();
 ---
 
 <div class="enquiry card" id="enquiry">
@@ -22,23 +21,16 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
     <p class="card__body">{t.form.sub}</p>
   </div>
 
-  {
-    whatsappIsPlaceholder && (
-      <p class="enquiry__note enquiry__note--warn" style="margin-bottom:1rem">
-        Enquiry form is inactive — WhatsApp number is a placeholder. Replace <code>CONTACT.whatsapp</code> in <code>src/config/site.ts</code> to enable it.
-      </p>
-    )
-  }
   {/*
-     No backend: on submit the fields are assembled into a WhatsApp message.
-     Native validation runs before the submit event fires, so `required` works.
+     No backend: on submit the fields are assembled into an email the visitor
+     sends from their own mail app. Native validation runs before the submit
+     event fires, so `required` works.
   */}
   <form
     class="enquiry__form"
     id="enquiry-form"
-    data-wa={CONTACT.whatsapp}
-    data-intro={t.form.waIntro}
-    aria-disabled={whatsappIsPlaceholder ? 'true' : undefined}
+    data-email={CONTACT.email}
+    data-intro={t.form.intro}
   >
     <div class="field">
       <label for="ef-name">{t.form.name}</label>
@@ -49,7 +41,7 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         autocomplete="name"
         required
         placeholder={t.form.namePlaceholder}
-        data-wa-label={t.form.waName}
+        data-label={t.form.labelName}
       />
     </div>
 
@@ -64,14 +56,14 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         inputmode="tel"
         autocomplete="tel"
         placeholder={t.form.phonePlaceholder}
-        data-wa-label={t.form.waPhone}
+        data-label={t.form.labelPhone}
       />
     </div>
 
     <div class="field">
       <label for="ef-intent">{t.form.intent}</label>
       <div class="select-wrap">
-        <select id="ef-intent" name="intent" data-wa-label={t.form.waIntent}>
+        <select id="ef-intent" name="intent" data-label={t.form.labelIntent}>
           <option value="buy">{t.form.intentBuy}</option>
           <option value="sell">{t.form.intentSell}</option>
           <option value="lease">{t.form.intentLease}</option>
@@ -84,7 +76,7 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
     <div class="field">
       <label for="ef-type">{t.form.propertyType}</label>
       <div class="select-wrap">
-        <select id="ef-type" name="type" data-wa-label={t.form.waType}>
+        <select id="ef-type" name="type" data-label={t.form.labelType}>
           <option value="agricultural" selected={defaultType === 'agricultural'}>
             {t.form.typeAgricultural}
           </option>
@@ -107,7 +99,7 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         name="location"
         type="text"
         placeholder={t.form.locationPlaceholder}
-        data-wa-label={t.form.waLocation}
+        data-label={t.form.labelLocation}
       />
     </div>
 
@@ -120,7 +112,7 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         name="budget"
         type="text"
         placeholder={t.form.budgetPlaceholder}
-        data-wa-label={t.form.waBudget}
+        data-label={t.form.labelBudget}
       />
     </div>
 
@@ -133,12 +125,12 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         name="message"
         rows="4"
         placeholder={t.form.messagePlaceholder}
-        data-wa-label={t.form.waMessage}></textarea>
+        data-label={t.form.labelMessage}></textarea>
     </div>
 
     <div class="field field--full enquiry__submit">
-      <button type="submit" class="btn btn--wa btn--lg btn--block">
-        <Icon name="whatsapp" size={19} />
+      <button type="submit" class="btn btn--primary btn--lg btn--block">
+        <Icon name="mail" size={19} />
         {t.form.submit}
       </button>
       <p class="enquiry__note">{t.form.submitNote}</p>
@@ -156,16 +148,17 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const number = form.dataset.wa ?? '';
-      const lines: string[] = [`*${form.dataset.intro ?? 'Website enquiry'}*`, ''];
+      const email = form.dataset.email ?? '';
+      const subject = form.dataset.intro ?? 'Website enquiry';
+      const lines: string[] = [];
 
       // Walk the controls in document order so the message reads top-to-bottom.
       const controls = form.querySelectorAll<
         HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-      >('[data-wa-label]');
+      >('[data-label]');
 
       controls.forEach((control) => {
-        const label = control.dataset.waLabel ?? control.name;
+        const label = control.dataset.label ?? control.name;
 
         // For selects, send the visible (translated) option text, not the value.
         const value =
@@ -177,8 +170,10 @@ const whatsappIsPlaceholder = isPlaceholderWhatsapp();
         if (trimmed) lines.push(`${label}: ${trimmed}`);
       });
 
-      const url = `https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
+      // Opens the visitor's mail app with everything pre-filled; nothing is
+      // sent until they press send there.
+      const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      window.location.href = url;
     });
   }
 </script>

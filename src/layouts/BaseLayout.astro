@@ -3,7 +3,6 @@ import { Font } from 'astro:assets';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import WhatsAppFab from '../components/WhatsAppFab.astro';
 
 import { SITE } from '../config/site';
 import { ui } from '../i18n/ui';
@@ -128,7 +127,6 @@ const jsonLd = graph([
     </main>
 
     <Footer locale={locale} />
-    <WhatsAppFab locale={locale} />
 
     <script>
       // Progressive enhancement: fade sections in as they enter the viewport.

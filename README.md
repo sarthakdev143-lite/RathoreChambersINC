@@ -4,16 +4,16 @@ Bilingual (English + Hindi) marketing website for **Rathore Chambers INC** — p
 and sale of agricultural land (कृषि भूमि) and commercial shops.
 
 Built with [Astro](https://astro.build) as a **fully static site**: no server, no
-database, no JavaScript framework. Enquiries are handled by WhatsApp, phone and
-email links rather than a backend form, so the site can be hosted anywhere for
-free and there is nothing to maintain or patch.
+database, no JavaScript framework. Enquiries are handled by a `mailto:` link and
+a form that opens the visitor's own mail app, so the site can be hosted anywhere
+for free and there is nothing to maintain or patch.
 
 | | |
 |---|---|
 | **Pages** | 6 per language (Home, Services, Agricultural land, Commercial shops, About, Contact) + 404 |
 | **Languages** | English at `/`, Hindi at `/hi/` |
 | **Output** | Static HTML in `dist/` |
-| **Enquiries** | `wa.me` deep links, `tel:` and `mailto:` — no backend |
+| **Enquiries** | `mailto:` links + a form that pre-fills the visitor's email app — no backend |
 
 ---
 
@@ -25,18 +25,16 @@ Work through these four steps in order.
 ### Step 1 — Fill in your business details
 
 Open **`src/config/site.ts`**. This one file is the single source of truth: every
-phone number, email address, map link and social profile on the website is read
-from it, including the hidden structured data that Google uses to build your
-search listing.
+email address, map link and social profile on the website is read from it,
+including the hidden structured data that Google uses to build your search
+listing. There is deliberately **no phone or WhatsApp field** — the site
+publishes a single email address and nothing else.
 
 | Setting | What to put there |
 |---|---|
 | `SITE.url` | Your real domain, **with no trailing slash** — e.g. `https://www.rathorechambers.com`. Used for canonical URLs and the sitemap, so getting it wrong will hurt search rankings. |
 | `SITE.foundingYear` | The year the business started, e.g. `'2012'`. Leave empty to omit. |
-| `CONTACT.phone.e164` | International format for the tap-to-call link: `+919876543210`. |
-| `CONTACT.phone.display` | How the number is shown on screen: `+91 98765 43210`. |
-| `CONTACT.whatsapp` | **Digits only**, with country code, no `+` or spaces: `919876543210`. |
-| `CONTACT.email` | Your business email address. |
+| `CONTACT.email` | The only contact address published on the site — every "Email us" button, the enquiry form, the footer and the contact page read it. Currently `hr@rathorechambers.com`. |
 | `CONTACT.address` | Street, city (`locality`), state (`region`) and PIN code. Keep this **identical to your Google Business Profile** — mismatched addresses weaken local search results. |
 | `CONTACT.mapUrl` | The share link from Google Maps. |
 | `CONTACT.hours` | Opening days and times. Already set to Mon–Sat, 09:30–19:00. |
@@ -187,10 +185,11 @@ the site is fast without it.
 - **Google Search Console** — add the property, then submit
   `https://yourdomain.com/sitemap-index.xml`. Both languages are listed in the
   sitemap with the correct `hreflang` alternates.
-- **Google Business Profile** — create or claim the listing. Make sure the name,
-  address and phone number match `src/config/site.ts` character for character.
-- **Test the WhatsApp button on a real phone.** Until `CONTACT.whatsapp` is
-  filled in, every enquiry link points at a placeholder number.
+- **Google Business Profile** — create or claim the listing. Make sure the name
+  and address match `src/config/site.ts` character for character.
+- **Send a test enquiry.** Click an "Email us" button on the live site and confirm
+  your mail app opens with the details pre-filled, then check that
+  `hr@rathorechambers.com` actually receives it.
 - **Check the social preview** by pasting your URL into WhatsApp or
   [Facebook's Sharing Debugger](https://developers.facebook.com/tools/debug/).
 - **Structured data** — paste a page URL into

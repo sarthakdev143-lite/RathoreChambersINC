@@ -2,12 +2,13 @@
  * ─────────────────────────────────────────────────────────────────────────────
  *  SINGLE SOURCE OF TRUTH FOR BUSINESS DETAILS
  * ─────────────────────────────────────────────────────────────────────────────
- *  Every phone number, email, address and social link on the website is read
- *  from this file. Edit here and the whole site (including the SEO structured
- *  data that Google reads) updates.
+ *  Every email address, address and social link on the website is read from
+ *  this file. Edit here and the whole site (including the SEO structured data
+ *  that Google reads) updates.
  *
- *  Anything marked `TODO` is a placeholder. Replace it before going live.
  *  Leave a value as an empty string ('') to hide that item from the site.
+ *  There is deliberately NO phone or WhatsApp number: the business publishes
+ *  exactly one email address and nothing else.
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -32,23 +33,11 @@ export const SITE = {
 
 export const CONTACT = {
   /**
-   * TODO: Primary phone.
-   *  - `e164`    : international format, digits + leading '+'. Used for tel: links.
-   *  - `display` : how it is shown on screen. Format it however you like.
+   * The only contact address published on the site — every "Email us" button,
+   * the contact page, the footer, the enquiry form and the structured data
+   * read this.
    */
-  phone: {
-    e164: '',
-    display: '',
-  },
-
-  /**
-   * TODO: WhatsApp number — DIGITS ONLY, including country code, no '+' or spaces.
-   * Example: Indian number 90000 00000 becomes '919000000000'.
-   */
-  whatsapp: '919000000000',
-
-  /** TODO: your business email. */
-  email: 'contact@rathorechambers.com',
+  email: 'hr@rathorechambers.com',
 
   /**
    * TODO: office address. Used for the LocalBusiness structured data that powers
@@ -109,9 +98,6 @@ export const STATS: { value: string; key: 'years' | 'deals' | 'districts' | 'cli
 export const hasAddress =
   Boolean(CONTACT.address.locality) || Boolean(CONTACT.address.street);
 
-export const hasPhone =
-  Boolean(CONTACT.phone.e164) && Boolean(CONTACT.phone.display);
-
 export const addressOneLine = [
   CONTACT.address.street,
   CONTACT.address.locality,
@@ -125,18 +111,13 @@ export const socialLinks = Object.entries(SOCIAL)
   .filter(([, href]) => Boolean(href))
   .map(([network, href]) => ({ network, href }));
 
-export function isPlaceholderPhone(): boolean {
-  return !hasPhone || (CONTACT.phone.e164 as string) === '+919000000000' || (CONTACT.phone.e164 as string).includes('90000');
-}
-export function isPlaceholderWhatsapp(): boolean {
-  return CONTACT.whatsapp === '919000000000' || (CONTACT.whatsapp as string).includes('90000');
-}
+/** Keeps a stubbed address out of the site and the structured data. */
 export function isPlaceholderEmail(): boolean {
-  return CONTACT.email === 'contact@rathorechambers.com' || (CONTACT.email as string).includes('example');
+  return !CONTACT.email || CONTACT.email.includes('example');
 }
 
-/** Builds a wa.me deep link with an optional pre-filled message. */
-export function whatsappLink(message?: string): string {
-  const base = `https://wa.me/${CONTACT.whatsapp}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+/** Builds a mailto: link with an optional pre-filled subject line. */
+export function emailLink(subject?: string): string {
+  const base = `mailto:${CONTACT.email}`;
+  return subject ? `${base}?subject=${encodeURIComponent(subject)}` : base;
 }

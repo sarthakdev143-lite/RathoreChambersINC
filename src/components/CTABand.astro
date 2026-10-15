@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 
-import { CONTACT, hasPhone, whatsappLink } from '../config/site';
+import { emailLink } from '../config/site';
 import { ui } from '../i18n/ui';
 import { route, type Locale } from '../i18n/utils';
 
@@ -9,11 +9,11 @@ interface Props {
   locale: Locale;
   title: string;
   body: string;
-  /** Pre-fills the WhatsApp message so you know which page the lead came from. */
-  waMessage?: string;
+  /** Pre-fills the email subject so you know which page the lead came from. */
+  emailSubject?: string;
 }
 
-const { locale, title, body, waMessage } = Astro.props;
+const { locale, title, body, emailSubject } = Astro.props;
 const t = ui[locale];
 ---
 
@@ -28,22 +28,10 @@ const t = ui[locale];
     </div>
 
     <div class="cta__actions">
-      <a
-        class="btn btn--wa btn--lg"
-        href={whatsappLink(waMessage)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Icon name="whatsapp" size={19} />
-        {t.common.whatsapp}
+      <a class="btn btn--primary btn--lg" href={emailLink(emailSubject)}>
+        <Icon name="mail" size={19} />
+        {t.common.emailUs}
       </a>
-
-      {hasPhone && (
-        <a class="btn btn--outline btn--lg" href={`tel:${CONTACT.phone.e164}`}>
-          <Icon name="phone" size={17} />
-          {CONTACT.phone.display}
-        </a>
-      )}>
 
       <a class="cta__link" href={route(locale, 'contact')}>
         {t.common.getInTouch}
