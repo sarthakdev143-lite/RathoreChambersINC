@@ -571,13 +571,25 @@ main > section:first-child {
 
 /* ------------------------------------------------------- 9. Scroll reveal */
 
+/*
+ * Fails VISIBLE, never blank.
+ *
+ * The reveal effect only hides anything once the script in BaseLayout has
+ * added `js` to <html> and taken over — it arms the animation and reveals
+ * everything already on screen in the same frame, so there is no flicker.
+ * If scripting is disabled, blocked by a CSP, or the script fails to load,
+ * `html.js` never appears and every section renders normally instead of
+ * staying invisible. (The production CSP once blocked an inlined copy of
+ * that script and the entire site went blank — never hide `.reveal`
+ * unconditionally again.)
+ */
 @media (prefers-reduced-motion: no-preference) {
-  .reveal {
+  html.js .reveal {
     opacity: 0;
     transform: translateY(18px);
   }
 
-  .reveal.is-visible {
+  html.js .reveal.is-visible {
     opacity: 1;
     transform: none;
     transition:

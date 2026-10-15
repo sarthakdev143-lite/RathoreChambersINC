@@ -70,4 +70,18 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+
+  vite: {
+    build: {
+      /*
+       * Astro inlines bundled <script> chunks smaller than this limit straight
+       * into the HTML. The production CSP is `script-src 'self'` (see
+       * vercel.json), which BLOCKS inline scripts — so when Astro inlined the
+       * site's page scripts, every one of them stopped running and the reveal
+       * observer left the whole page at opacity 0. Scripts must always be
+       * emitted as external files; the stylesheet size heuristic is fine.
+       */
+      assetsInlineLimit: (filePath: string) => (filePath.endsWith('.js') ? false : undefined),
+    },
+  },
 });

@@ -132,14 +132,31 @@ const jsonLd = graph([
 
     <script>
       // Progressive enhancement: fade sections in as they enter the viewport.
-      // Anything already on screen is revealed immediately, so there is never a
-      // blank first paint.
+      // The script "arms" the effect first (adds `js` to <html> — until then
+      // nothing is hidden, so a blocked or failed script leaves the page fully
+      // visible) and reveals everything already on screen in the same frame,
+      // so there is never a flash of blankness or unstyled content.
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const targets = document.querySelectorAll<HTMLElement>('.reveal');
 
-      if (reduceMotion || !('IntersectionObserver' in window)) {
-        targets.forEach((el) => el.classList.add('is-visible'));
-      } else {
+      if (!reduceMotion && 'IntersectionObserver' in window) {
+        const targets = document.querySelectorAll<HTMLElement>('.reveal');
+
+        // Arm: from here CSS hides anything that is not `.is-visible`.
+        document.documentElement.classList.add('js');
+
+        // Reveal whatever is in the viewport right now, before the next paint.
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const pending: HTMLElement[] = [];
+
+        targets.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < viewportHeight && rect.bottom > 0) {
+            el.classList.add('is-visible');
+          } else {
+            pending.push(el);
+          }
+        });
+
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -151,7 +168,7 @@ const jsonLd = graph([
           { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
         );
 
-        targets.forEach((el) => observer.observe(el));
+        pending.forEach((el) => observer.observe(el));
       }
     </script>
 
